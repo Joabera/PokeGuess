@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>325d7727e41246768e6b88eadc2a14e2.jpg</filename>
+	<size/>
+	<width>530</width>
+	<height>530</height>
+	<depth>3</depth>
+	<object>
+		<name>Poliwag</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>53</xmin>
+			<ymin>53</ymin>
+			<xmax>477</xmax>
+			<ymax>477</ymax>
+		</bndbox>
+	</object>
+</annotation>

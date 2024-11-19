@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>aa343a353d7e47aa800d65231f846724.jpg</filename>
+	<size/>
+	<width>422</width>
+	<height>800</height>
+	<depth>3</depth>
+	<object>
+		<name>Doduo</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>42</xmin>
+			<ymin>80</ymin>
+			<xmax>380</xmax>
+			<ymax>720</ymax>
+		</bndbox>
+	</object>
+</annotation>

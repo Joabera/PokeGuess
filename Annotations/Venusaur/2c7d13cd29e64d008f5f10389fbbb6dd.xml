@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>2c7d13cd29e64d008f5f10389fbbb6dd.jpg</filename>
+	<size/>
+	<width>300</width>
+	<height>266</height>
+	<depth>3</depth>
+	<object>
+		<name>Venusaur</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>30</xmin>
+			<ymin>26</ymin>
+			<xmax>270</xmax>
+			<ymax>240</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>e3320874e733483c968c806fbb5f9315.jpg</filename>
+	<size/>
+	<width>260</width>
+	<height>300</height>
+	<depth>3</depth>
+	<object>
+		<name>Poliwhirl</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>26</xmin>
+			<ymin>30</ymin>
+			<xmax>234</xmax>
+			<ymax>270</ymax>
+		</bndbox>
+	</object>
+</annotation>

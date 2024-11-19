@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000011.jpg</filename>
+	<size/>
+	<width>827</width>
+	<height>967</height>
+	<depth>3</depth>
+	<object>
+		<name>Pidgeotto</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>82</xmin>
+			<ymin>96</ymin>
+			<xmax>745</xmax>
+			<ymax>871</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>d906b6b9b24a4baf9c069a27b87e15c0.jpg</filename>
+	<size/>
+	<width>1601</width>
+	<height>1478</height>
+	<depth>3</depth>
+	<object>
+		<name>Charizard</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>160</xmin>
+			<ymin>147</ymin>
+			<xmax>1441</xmax>
+			<ymax>1331</ymax>
+		</bndbox>
+	</object>
+</annotation>

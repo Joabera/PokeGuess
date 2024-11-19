@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>9ca9588a87df4af8b434c0ce79009f43.jpg</filename>
+	<size/>
+	<width>607</width>
+	<height>607</height>
+	<depth>3</depth>
+	<object>
+		<name>Mewtwo</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>60</xmin>
+			<ymin>60</ymin>
+			<xmax>547</xmax>
+			<ymax>547</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>e590ef8828d94ddbb61841ceffdf1601.jpg</filename>
+	<size/>
+	<width>540</width>
+	<height>546</height>
+	<depth>3</depth>
+	<object>
+		<name>Venonat</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>54</xmin>
+			<ymin>54</ymin>
+			<xmax>486</xmax>
+			<ymax>492</ymax>
+		</bndbox>
+	</object>
+</annotation>

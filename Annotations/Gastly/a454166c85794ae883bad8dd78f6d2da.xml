@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>a454166c85794ae883bad8dd78f6d2da.jpg</filename>
+	<size/>
+	<width>717</width>
+	<height>718</height>
+	<depth>3</depth>
+	<object>
+		<name>Gastly</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>71</xmin>
+			<ymin>71</ymin>
+			<xmax>646</xmax>
+			<ymax>647</ymax>
+		</bndbox>
+	</object>
+</annotation>

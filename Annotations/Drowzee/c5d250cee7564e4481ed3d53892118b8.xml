@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c5d250cee7564e4481ed3d53892118b8.jpg</filename>
+	<size/>
+	<width>751</width>
+	<height>901</height>
+	<depth>3</depth>
+	<object>
+		<name>Drowzee</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>75</xmin>
+			<ymin>90</ymin>
+			<xmax>676</xmax>
+			<ymax>811</ymax>
+		</bndbox>
+	</object>
+</annotation>

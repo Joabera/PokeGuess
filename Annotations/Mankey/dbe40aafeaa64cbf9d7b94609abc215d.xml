@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>dbe40aafeaa64cbf9d7b94609abc215d.jpg</filename>
+	<size/>
+	<width>164</width>
+	<height>164</height>
+	<depth>3</depth>
+	<object>
+		<name>Mankey</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>16</xmin>
+			<ymin>16</ymin>
+			<xmax>148</xmax>
+			<ymax>148</ymax>
+		</bndbox>
+	</object>
+</annotation>

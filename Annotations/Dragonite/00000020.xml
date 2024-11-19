@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000020.png</filename>
+	<size/>
+	<width>803</width>
+	<height>779</height>
+	<depth>3</depth>
+	<object>
+		<name>Dragonite</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>80</xmin>
+			<ymin>77</ymin>
+			<xmax>723</xmax>
+			<ymax>702</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>1b25533602de4e6e8f991799883e1633.jpg</filename>
+	<size/>
+	<width>142</width>
+	<height>142</height>
+	<depth>3</depth>
+	<object>
+		<name>Oddish</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>14</xmin>
+			<ymin>14</ymin>
+			<xmax>128</xmax>
+			<ymax>128</ymax>
+		</bndbox>
+	</object>
+</annotation>

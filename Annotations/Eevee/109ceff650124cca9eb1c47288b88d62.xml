@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>109ceff650124cca9eb1c47288b88d62.jpg</filename>
+	<size/>
+	<width>1750</width>
+	<height>2500</height>
+	<depth>3</depth>
+	<object>
+		<name>Eevee</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>175</xmin>
+			<ymin>250</ymin>
+			<xmax>1575</xmax>
+			<ymax>2250</ymax>
+		</bndbox>
+	</object>
+</annotation>

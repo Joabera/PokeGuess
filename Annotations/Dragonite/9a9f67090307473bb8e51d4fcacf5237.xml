@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>9a9f67090307473bb8e51d4fcacf5237.jpg</filename>
+	<size/>
+	<width>746</width>
+	<height>740</height>
+	<depth>3</depth>
+	<object>
+		<name>Dragonite</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>74</xmin>
+			<ymin>74</ymin>
+			<xmax>672</xmax>
+			<ymax>666</ymax>
+		</bndbox>
+	</object>
+</annotation>

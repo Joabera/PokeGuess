@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>019ed454c27d4701a0be98470bd47929.jpg</filename>
+	<size/>
+	<width>1024</width>
+	<height>729</height>
+	<depth>3</depth>
+	<object>
+		<name>Beedrill</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>102</xmin>
+			<ymin>72</ymin>
+			<xmax>922</xmax>
+			<ymax>657</ymax>
+		</bndbox>
+	</object>
+</annotation>

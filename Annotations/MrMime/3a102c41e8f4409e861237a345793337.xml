@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>3a102c41e8f4409e861237a345793337.jpg</filename>
+	<size/>
+	<width>389</width>
+	<height>385</height>
+	<depth>3</depth>
+	<object>
+		<name>MrMime</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>38</xmin>
+			<ymin>38</ymin>
+			<xmax>351</xmax>
+			<ymax>347</ymax>
+		</bndbox>
+	</object>
+</annotation>

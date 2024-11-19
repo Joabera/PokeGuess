@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>276a2f970c0d4fdab84d75df91993a55.jpg</filename>
+	<size/>
+	<width>327</width>
+	<height>317</height>
+	<depth>3</depth>
+	<object>
+		<name>Kabutops</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>32</xmin>
+			<ymin>31</ymin>
+			<xmax>295</xmax>
+			<ymax>286</ymax>
+		</bndbox>
+	</object>
+</annotation>

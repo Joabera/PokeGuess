@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000106.jpg</filename>
+	<size/>
+	<width>1300</width>
+	<height>1900</height>
+	<depth>3</depth>
+	<object>
+		<name>Gengar</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>130</xmin>
+			<ymin>190</ymin>
+			<xmax>1170</xmax>
+			<ymax>1710</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>77df311ca4b34512ada798915904b721.jpg</filename>
+	<size/>
+	<width>162</width>
+	<height>167</height>
+	<depth>3</depth>
+	<object>
+		<name>Staryu</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>16</xmin>
+			<ymin>16</ymin>
+			<xmax>146</xmax>
+			<ymax>151</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>db9614664bee418bad5cb752c0423ec8.jpg</filename>
+	<size/>
+	<width>207</width>
+	<height>201</height>
+	<depth>3</depth>
+	<object>
+		<name>Geodude</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>20</xmin>
+			<ymin>20</ymin>
+			<xmax>187</xmax>
+			<ymax>181</ymax>
+		</bndbox>
+	</object>
+</annotation>

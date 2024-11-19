@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>cb7fa9b6c1394875beec40bb1bc3e796.jpg</filename>
+	<size/>
+	<width>200</width>
+	<height>244</height>
+	<depth>3</depth>
+	<object>
+		<name>Kangaskhan</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>20</xmin>
+			<ymin>24</ymin>
+			<xmax>180</xmax>
+			<ymax>220</ymax>
+		</bndbox>
+	</object>
+</annotation>

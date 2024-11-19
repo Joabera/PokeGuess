@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000005.png</filename>
+	<size/>
+	<width>703</width>
+	<height>789</height>
+	<depth>3</depth>
+	<object>
+		<name>Arbok</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>70</xmin>
+			<ymin>78</ymin>
+			<xmax>633</xmax>
+			<ymax>711</ymax>
+		</bndbox>
+	</object>
+</annotation>

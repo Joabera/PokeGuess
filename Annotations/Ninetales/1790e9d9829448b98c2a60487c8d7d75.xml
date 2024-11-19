@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>1790e9d9829448b98c2a60487c8d7d75.jpg</filename>
+	<size/>
+	<width>560</width>
+	<height>545</height>
+	<depth>3</depth>
+	<object>
+		<name>Ninetales</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>56</xmin>
+			<ymin>54</ymin>
+			<xmax>504</xmax>
+			<ymax>491</ymax>
+		</bndbox>
+	</object>
+</annotation>

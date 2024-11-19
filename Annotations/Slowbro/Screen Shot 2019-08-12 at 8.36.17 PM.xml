@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>Screen Shot 2019-08-12 at 8.36.17 PM.png</filename>
+	<size/>
+	<width>742</width>
+	<height>754</height>
+	<depth>3</depth>
+	<object>
+		<name>Slowbro</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>74</xmin>
+			<ymin>75</ymin>
+			<xmax>668</xmax>
+			<ymax>679</ymax>
+		</bndbox>
+	</object>
+</annotation>

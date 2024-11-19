@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0094ee22b6884bd694051b17d346a4a4.jpg</filename>
+	<size/>
+	<width>113</width>
+	<height>113</height>
+	<depth>3</depth>
+	<object>
+		<name>Ekans</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>11</xmin>
+			<ymin>11</ymin>
+			<xmax>102</xmax>
+			<ymax>102</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>217996797adb4b1db6470943fdc2795b.jpg</filename>
+	<size/>
+	<width>430</width>
+	<height>429</height>
+	<depth>3</depth>
+	<object>
+		<name>Rhyhorn</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>43</xmin>
+			<ymin>42</ymin>
+			<xmax>387</xmax>
+			<ymax>387</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>94214e34924e4b6e96a64c477f9facfc.jpg</filename>
+	<size/>
+	<width>799</width>
+	<height>490</height>
+	<depth>3</depth>
+	<object>
+		<name>Krabby</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>79</xmin>
+			<ymin>49</ymin>
+			<xmax>720</xmax>
+			<ymax>441</ymax>
+		</bndbox>
+	</object>
+</annotation>

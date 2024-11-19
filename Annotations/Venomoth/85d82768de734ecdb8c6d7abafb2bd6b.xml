@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>85d82768de734ecdb8c6d7abafb2bd6b.jpg</filename>
+	<size/>
+	<width>396</width>
+	<height>382</height>
+	<depth>3</depth>
+	<object>
+		<name>Venomoth</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>39</xmin>
+			<ymin>38</ymin>
+			<xmax>357</xmax>
+			<ymax>344</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>68ff97e646e84f4e8f9da357ff9d1307.jpg</filename>
+	<size/>
+	<width>60</width>
+	<height>72</height>
+	<depth>3</depth>
+	<object>
+		<name>Voltorb</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>6</xmin>
+			<ymin>7</ymin>
+			<xmax>54</xmax>
+			<ymax>65</ymax>
+		</bndbox>
+	</object>
+</annotation>

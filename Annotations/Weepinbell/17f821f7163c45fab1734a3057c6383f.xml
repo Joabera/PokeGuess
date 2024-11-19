@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>17f821f7163c45fab1734a3057c6383f.jpg</filename>
+	<size/>
+	<width>780</width>
+	<height>720</height>
+	<depth>3</depth>
+	<object>
+		<name>Weepinbell</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>78</xmin>
+			<ymin>72</ymin>
+			<xmax>702</xmax>
+			<ymax>648</ymax>
+		</bndbox>
+	</object>
+</annotation>

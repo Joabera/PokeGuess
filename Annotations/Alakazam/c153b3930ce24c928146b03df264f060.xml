@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c153b3930ce24c928146b03df264f060.jpg</filename>
+	<size/>
+	<width>1428</width>
+	<height>1392</height>
+	<depth>3</depth>
+	<object>
+		<name>Alakazam</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>142</xmin>
+			<ymin>139</ymin>
+			<xmax>1286</xmax>
+			<ymax>1253</ymax>
+		</bndbox>
+	</object>
+</annotation>

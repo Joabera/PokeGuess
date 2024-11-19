@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0a7c888c03b54398b83c353a55df965c.jpg</filename>
+	<size/>
+	<width>832</width>
+	<height>960</height>
+	<depth>3</depth>
+	<object>
+		<name>Meowth</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>83</xmin>
+			<ymin>96</ymin>
+			<xmax>749</xmax>
+			<ymax>864</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>12ca674530f04f3396e74b6f37f620fd.jpg</filename>
+	<size/>
+	<width>602</width>
+	<height>1071</height>
+	<depth>3</depth>
+	<object>
+		<name>Kabuto</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>60</xmin>
+			<ymin>107</ymin>
+			<xmax>542</xmax>
+			<ymax>964</ymax>
+		</bndbox>
+	</object>
+</annotation>

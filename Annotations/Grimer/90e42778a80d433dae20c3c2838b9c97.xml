@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>90e42778a80d433dae20c3c2838b9c97.jpg</filename>
+	<size/>
+	<width>500</width>
+	<height>561</height>
+	<depth>3</depth>
+	<object>
+		<name>Grimer</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>50</xmin>
+			<ymin>56</ymin>
+			<xmax>450</xmax>
+			<ymax>505</ymax>
+		</bndbox>
+	</object>
+</annotation>

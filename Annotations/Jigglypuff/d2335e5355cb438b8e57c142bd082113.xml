@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>d2335e5355cb438b8e57c142bd082113.jpg</filename>
+	<size/>
+	<width>180</width>
+	<height>176</height>
+	<depth>3</depth>
+	<object>
+		<name>Jigglypuff</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>18</xmin>
+			<ymin>17</ymin>
+			<xmax>162</xmax>
+			<ymax>159</ymax>
+		</bndbox>
+	</object>
+</annotation>

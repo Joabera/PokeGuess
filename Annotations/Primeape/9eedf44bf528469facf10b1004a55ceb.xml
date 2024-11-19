@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>9eedf44bf528469facf10b1004a55ceb.jpg</filename>
+	<size/>
+	<width>736</width>
+	<height>1041</height>
+	<depth>3</depth>
+	<object>
+		<name>Primeape</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>73</xmin>
+			<ymin>104</ymin>
+			<xmax>663</xmax>
+			<ymax>937</ymax>
+		</bndbox>
+	</object>
+</annotation>

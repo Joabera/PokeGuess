@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>356b0fb4a6474c33bd3dc9b313c8e673.jpg</filename>
+	<size/>
+	<width>675</width>
+	<height>685</height>
+	<depth>3</depth>
+	<object>
+		<name>Nidorina</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>67</xmin>
+			<ymin>68</ymin>
+			<xmax>608</xmax>
+			<ymax>617</ymax>
+		</bndbox>
+	</object>
+</annotation>

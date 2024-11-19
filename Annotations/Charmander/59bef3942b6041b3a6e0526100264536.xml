@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>59bef3942b6041b3a6e0526100264536.jpg</filename>
+	<size/>
+	<width>432</width>
+	<height>480</height>
+	<depth>3</depth>
+	<object>
+		<name>Charmander</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>43</xmin>
+			<ymin>48</ymin>
+			<xmax>389</xmax>
+			<ymax>432</ymax>
+		</bndbox>
+	</object>
+</annotation>

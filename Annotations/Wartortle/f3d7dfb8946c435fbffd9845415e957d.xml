@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>f3d7dfb8946c435fbffd9845415e957d.jpg</filename>
+	<size/>
+	<width>472</width>
+	<height>498</height>
+	<depth>3</depth>
+	<object>
+		<name>Wartortle</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>47</xmin>
+			<ymin>49</ymin>
+			<xmax>425</xmax>
+			<ymax>449</ymax>
+		</bndbox>
+	</object>
+</annotation>

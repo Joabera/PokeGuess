@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c33eb66bd8c74d19be86fa5a360e267d.jpg</filename>
+	<size/>
+	<width>900</width>
+	<height>597</height>
+	<depth>3</depth>
+	<object>
+		<name>Persian</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>90</xmin>
+			<ymin>59</ymin>
+			<xmax>810</xmax>
+			<ymax>538</ymax>
+		</bndbox>
+	</object>
+</annotation>

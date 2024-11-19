@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0cc45a8964ea413ab504852875cfe624.jpg</filename>
+	<size/>
+	<width>262</width>
+	<height>262</height>
+	<depth>3</depth>
+	<object>
+		<name>Farfetchd</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>26</xmin>
+			<ymin>26</ymin>
+			<xmax>236</xmax>
+			<ymax>236</ymax>
+		</bndbox>
+	</object>
+</annotation>

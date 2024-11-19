@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>555bda77d25e48e49fc60a0c51ff7987.jpg</filename>
+	<size/>
+	<width>360</width>
+	<height>348</height>
+	<depth>3</depth>
+	<object>
+		<name>Tangela</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>36</xmin>
+			<ymin>34</ymin>
+			<xmax>324</xmax>
+			<ymax>314</ymax>
+		</bndbox>
+	</object>
+</annotation>

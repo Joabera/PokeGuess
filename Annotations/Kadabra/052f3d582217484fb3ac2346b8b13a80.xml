@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>052f3d582217484fb3ac2346b8b13a80.jpg</filename>
+	<size/>
+	<width>224</width>
+	<height>231</height>
+	<depth>3</depth>
+	<object>
+		<name>Kadabra</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>22</xmin>
+			<ymin>23</ymin>
+			<xmax>202</xmax>
+			<ymax>208</ymax>
+		</bndbox>
+	</object>
+</annotation>

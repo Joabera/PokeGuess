@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>749d4a81d8e74e1da1d67b495e447af2.jpg</filename>
+	<size/>
+	<width>256</width>
+	<height>256</height>
+	<depth>3</depth>
+	<object>
+		<name>Golem</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>25</xmin>
+			<ymin>25</ymin>
+			<xmax>231</xmax>
+			<ymax>231</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>qwe.png</filename>
+	<size/>
+	<width>1000</width>
+	<height>998</height>
+	<depth>3</depth>
+	<object>
+		<name>Bulbasaur</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>100</xmin>
+			<ymin>99</ymin>
+			<xmax>900</xmax>
+			<ymax>899</ymax>
+		</bndbox>
+	</object>
+</annotation>

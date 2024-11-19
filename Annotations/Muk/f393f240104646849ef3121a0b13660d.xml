@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>f393f240104646849ef3121a0b13660d.jpg</filename>
+	<size/>
+	<width>321</width>
+	<height>450</height>
+	<depth>3</depth>
+	<object>
+		<name>Muk</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>32</xmin>
+			<ymin>45</ymin>
+			<xmax>289</xmax>
+			<ymax>405</ymax>
+		</bndbox>
+	</object>
+</annotation>

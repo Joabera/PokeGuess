@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>573b9a78827c40e1a43a8d09793385f1.jpg</filename>
+	<size/>
+	<width>245</width>
+	<height>242</height>
+	<depth>3</depth>
+	<object>
+		<name>Moltres</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>24</xmin>
+			<ymin>24</ymin>
+			<xmax>221</xmax>
+			<ymax>218</ymax>
+		</bndbox>
+	</object>
+</annotation>

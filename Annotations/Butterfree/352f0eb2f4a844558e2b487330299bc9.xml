@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>352f0eb2f4a844558e2b487330299bc9.jpg</filename>
+	<size/>
+	<width>1288</width>
+	<height>968</height>
+	<depth>3</depth>
+	<object>
+		<name>Butterfree</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>128</xmin>
+			<ymin>96</ymin>
+			<xmax>1160</xmax>
+			<ymax>872</ymax>
+		</bndbox>
+	</object>
+</annotation>

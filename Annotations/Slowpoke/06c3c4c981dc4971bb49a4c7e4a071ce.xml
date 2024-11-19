@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>06c3c4c981dc4971bb49a4c7e4a071ce.jpg</filename>
+	<size/>
+	<width>960</width>
+	<height>776</height>
+	<depth>3</depth>
+	<object>
+		<name>Slowpoke</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>96</xmin>
+			<ymin>77</ymin>
+			<xmax>864</xmax>
+			<ymax>699</ymax>
+		</bndbox>
+	</object>
+</annotation>

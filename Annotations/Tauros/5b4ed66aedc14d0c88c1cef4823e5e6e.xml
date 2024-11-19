@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>5b4ed66aedc14d0c88c1cef4823e5e6e.jpg</filename>
+	<size/>
+	<width>403</width>
+	<height>422</height>
+	<depth>3</depth>
+	<object>
+		<name>Tauros</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>40</xmin>
+			<ymin>42</ymin>
+			<xmax>363</xmax>
+			<ymax>380</ymax>
+		</bndbox>
+	</object>
+</annotation>

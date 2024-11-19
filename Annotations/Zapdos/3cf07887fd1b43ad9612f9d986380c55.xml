@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>3cf07887fd1b43ad9612f9d986380c55.jpg</filename>
+	<size/>
+	<width>483</width>
+	<height>450</height>
+	<depth>3</depth>
+	<object>
+		<name>Zapdos</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>48</xmin>
+			<ymin>45</ymin>
+			<xmax>435</xmax>
+			<ymax>405</ymax>
+		</bndbox>
+	</object>
+</annotation>

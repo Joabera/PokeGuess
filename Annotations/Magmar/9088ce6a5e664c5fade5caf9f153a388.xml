@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>9088ce6a5e664c5fade5caf9f153a388.jpg</filename>
+	<size/>
+	<width>699</width>
+	<height>703</height>
+	<depth>3</depth>
+	<object>
+		<name>Magmar</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>69</xmin>
+			<ymin>70</ymin>
+			<xmax>630</xmax>
+			<ymax>633</ymax>
+		</bndbox>
+	</object>
+</annotation>

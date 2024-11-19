@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>ce945e0129244681a44c925016667ae0.jpg</filename>
+	<size/>
+	<width>241</width>
+	<height>253</height>
+	<depth>3</depth>
+	<object>
+		<name>Sandslash</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>24</xmin>
+			<ymin>25</ymin>
+			<xmax>217</xmax>
+			<ymax>228</ymax>
+		</bndbox>
+	</object>
+</annotation>

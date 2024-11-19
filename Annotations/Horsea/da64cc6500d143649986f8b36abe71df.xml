@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>da64cc6500d143649986f8b36abe71df.jpg</filename>
+	<size/>
+	<width>115</width>
+	<height>115</height>
+	<depth>3</depth>
+	<object>
+		<name>Horsea</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>11</xmin>
+			<ymin>11</ymin>
+			<xmax>104</xmax>
+			<ymax>104</ymax>
+		</bndbox>
+	</object>
+</annotation>

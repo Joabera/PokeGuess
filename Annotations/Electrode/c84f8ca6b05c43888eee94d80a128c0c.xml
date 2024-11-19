@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c84f8ca6b05c43888eee94d80a128c0c.jpg</filename>
+	<size/>
+	<width>913</width>
+	<height>875</height>
+	<depth>3</depth>
+	<object>
+		<name>Electrode</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>91</xmin>
+			<ymin>87</ymin>
+			<xmax>822</xmax>
+			<ymax>788</ymax>
+		</bndbox>
+	</object>
+</annotation>

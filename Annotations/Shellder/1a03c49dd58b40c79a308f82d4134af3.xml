@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>1a03c49dd58b40c79a308f82d4134af3.jpg</filename>
+	<size/>
+	<width>861</width>
+	<height>844</height>
+	<depth>3</depth>
+	<object>
+		<name>Shellder</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>86</xmin>
+			<ymin>84</ymin>
+			<xmax>775</xmax>
+			<ymax>760</ymax>
+		</bndbox>
+	</object>
+</annotation>

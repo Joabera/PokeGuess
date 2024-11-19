@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000131.png</filename>
+	<size/>
+	<width>850</width>
+	<height>1200</height>
+	<depth>3</depth>
+	<object>
+		<name>Venonat</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>85</xmin>
+			<ymin>120</ymin>
+			<xmax>765</xmax>
+			<ymax>1080</ymax>
+		</bndbox>
+	</object>
+</annotation>

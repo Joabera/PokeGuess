@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c2c1b86fe4c94fea8f8743523a77c2d5.jpg</filename>
+	<size/>
+	<width>612</width>
+	<height>607</height>
+	<depth>3</depth>
+	<object>
+		<name>Golduck</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>61</xmin>
+			<ymin>60</ymin>
+			<xmax>551</xmax>
+			<ymax>547</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c625732c8cff4c7fbbfa8e9b539f6775.jpg</filename>
+	<size/>
+	<width>135</width>
+	<height>140</height>
+	<depth>3</depth>
+	<object>
+		<name>Gloom</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>13</xmin>
+			<ymin>14</ymin>
+			<xmax>122</xmax>
+			<ymax>126</ymax>
+		</bndbox>
+	</object>
+</annotation>

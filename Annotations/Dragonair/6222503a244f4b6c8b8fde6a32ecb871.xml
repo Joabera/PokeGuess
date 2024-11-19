@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>6222503a244f4b6c8b8fde6a32ecb871.jpg</filename>
+	<size/>
+	<width>879</width>
+	<height>908</height>
+	<depth>3</depth>
+	<object>
+		<name>Dragonair</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>87</xmin>
+			<ymin>90</ymin>
+			<xmax>792</xmax>
+			<ymax>818</ymax>
+		</bndbox>
+	</object>
+</annotation>

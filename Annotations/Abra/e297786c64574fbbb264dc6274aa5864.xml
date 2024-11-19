@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>e297786c64574fbbb264dc6274aa5864.jpg</filename>
+	<size/>
+	<width>1079</width>
+	<height>1063</height>
+	<depth>3</depth>
+	<object>
+		<name>Abra</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>107</xmin>
+			<ymin>106</ymin>
+			<xmax>972</xmax>
+			<ymax>957</ymax>
+		</bndbox>
+	</object>
+</annotation>

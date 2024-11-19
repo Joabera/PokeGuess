@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c80ccaa33ff746e0b4dad7cb1f90db3a.jpg</filename>
+	<size/>
+	<width>456</width>
+	<height>408</height>
+	<depth>3</depth>
+	<object>
+		<name>Victreebel</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>45</xmin>
+			<ymin>40</ymin>
+			<xmax>411</xmax>
+			<ymax>368</ymax>
+		</bndbox>
+	</object>
+</annotation>

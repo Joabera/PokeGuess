@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>a66fff0369b04641871dd3befa9698a7.jpg</filename>
+	<size/>
+	<width>790</width>
+	<height>768</height>
+	<depth>3</depth>
+	<object>
+		<name>Mew</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>79</xmin>
+			<ymin>76</ymin>
+			<xmax>711</xmax>
+			<ymax>692</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>1a5b88e1f1414f7799dc66d76372090c.jpg</filename>
+	<size/>
+	<width>141</width>
+	<height>152</height>
+	<depth>3</depth>
+	<object>
+		<name>Weedle</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>14</xmin>
+			<ymin>15</ymin>
+			<xmax>127</xmax>
+			<ymax>137</ymax>
+		</bndbox>
+	</object>
+</annotation>

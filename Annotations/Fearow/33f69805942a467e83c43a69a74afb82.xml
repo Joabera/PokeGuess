@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>33f69805942a467e83c43a69a74afb82.jpg</filename>
+	<size/>
+	<width>825</width>
+	<height>825</height>
+	<depth>3</depth>
+	<object>
+		<name>Fearow</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>82</xmin>
+			<ymin>82</ymin>
+			<xmax>743</xmax>
+			<ymax>743</ymax>
+		</bndbox>
+	</object>
+</annotation>

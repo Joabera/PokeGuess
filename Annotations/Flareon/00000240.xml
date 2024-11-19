@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000240.png</filename>
+	<size/>
+	<width>987</width>
+	<height>767</height>
+	<depth>3</depth>
+	<object>
+		<name>Flareon</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>98</xmin>
+			<ymin>76</ymin>
+			<xmax>889</xmax>
+			<ymax>691</ymax>
+		</bndbox>
+	</object>
+</annotation>

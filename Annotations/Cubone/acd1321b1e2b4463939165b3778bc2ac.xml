@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>acd1321b1e2b4463939165b3778bc2ac.jpg</filename>
+	<size/>
+	<width>1200</width>
+	<height>1608</height>
+	<depth>3</depth>
+	<object>
+		<name>Cubone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>120</xmin>
+			<ymin>160</ymin>
+			<xmax>1080</xmax>
+			<ymax>1448</ymax>
+		</bndbox>
+	</object>
+</annotation>

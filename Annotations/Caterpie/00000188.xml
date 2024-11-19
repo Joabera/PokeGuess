@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000188.png</filename>
+	<size/>
+	<width>1591</width>
+	<height>1260</height>
+	<depth>3</depth>
+	<object>
+		<name>Caterpie</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>159</xmin>
+			<ymin>126</ymin>
+			<xmax>1432</xmax>
+			<ymax>1134</ymax>
+		</bndbox>
+	</object>
+</annotation>

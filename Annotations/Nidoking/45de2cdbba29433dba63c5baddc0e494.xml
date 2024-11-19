@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>45de2cdbba29433dba63c5baddc0e494.jpg</filename>
+	<size/>
+	<width>424</width>
+	<height>430</height>
+	<depth>3</depth>
+	<object>
+		<name>Nidoking</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>42</xmin>
+			<ymin>43</ymin>
+			<xmax>382</xmax>
+			<ymax>387</ymax>
+		</bndbox>
+	</object>
+</annotation>

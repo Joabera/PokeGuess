@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>a25475d3d2084b09854910d73e20aaeb.jpg</filename>
+	<size/>
+	<width>529</width>
+	<height>529</height>
+	<depth>3</depth>
+	<object>
+		<name>Psyduck</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>52</xmin>
+			<ymin>52</ymin>
+			<xmax>477</xmax>
+			<ymax>477</ymax>
+		</bndbox>
+	</object>
+</annotation>

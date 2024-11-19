@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>bf3965e9cb8c48cc89cf35c9a31930a6.jpg</filename>
+	<size/>
+	<width>843</width>
+	<height>773</height>
+	<depth>3</depth>
+	<object>
+		<name>Vileplume</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>84</xmin>
+			<ymin>77</ymin>
+			<xmax>759</xmax>
+			<ymax>696</ymax>
+		</bndbox>
+	</object>
+</annotation>

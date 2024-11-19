@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0a3e50cc0c454d1ba47191acd74dd7a4.jpg</filename>
+	<size/>
+	<width>327</width>
+	<height>327</height>
+	<depth>3</depth>
+	<object>
+		<name>Pinsir</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>32</xmin>
+			<ymin>32</ymin>
+			<xmax>295</xmax>
+			<ymax>295</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>04196e70ac054597baf6a7d71eda9f66.jpg</filename>
+	<size/>
+	<width>648</width>
+	<height>1152</height>
+	<depth>3</depth>
+	<object>
+		<name>Mime</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>64</xmin>
+			<ymin>115</ymin>
+			<xmax>584</xmax>
+			<ymax>1037</ymax>
+		</bndbox>
+	</object>
+</annotation>

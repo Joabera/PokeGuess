@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>5fa556b592bf42d7abcf84aabc8b7b57.jpg</filename>
+	<size/>
+	<width>425</width>
+	<height>272</height>
+	<depth>3</depth>
+	<object>
+		<name>Paras</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>42</xmin>
+			<ymin>27</ymin>
+			<xmax>383</xmax>
+			<ymax>245</ymax>
+		</bndbox>
+	</object>
+</annotation>

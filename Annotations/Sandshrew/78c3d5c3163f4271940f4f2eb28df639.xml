@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>78c3d5c3163f4271940f4f2eb28df639.jpg</filename>
+	<size/>
+	<width>836</width>
+	<height>892</height>
+	<depth>3</depth>
+	<object>
+		<name>Sandshrew</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>83</xmin>
+			<ymin>89</ymin>
+			<xmax>753</xmax>
+			<ymax>803</ymax>
+		</bndbox>
+	</object>
+</annotation>

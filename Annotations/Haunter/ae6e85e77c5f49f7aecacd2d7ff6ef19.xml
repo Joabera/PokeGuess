@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>ae6e85e77c5f49f7aecacd2d7ff6ef19.jpg</filename>
+	<size/>
+	<width>378</width>
+	<height>373</height>
+	<depth>3</depth>
+	<object>
+		<name>Haunter</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>37</xmin>
+			<ymin>37</ymin>
+			<xmax>341</xmax>
+			<ymax>336</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>ba5469d1ab2b4aaa9091308bad97e6b6.jpg</filename>
+	<size/>
+	<width>139</width>
+	<height>139</height>
+	<depth>3</depth>
+	<object>
+		<name>Kakuna</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>13</xmin>
+			<ymin>13</ymin>
+			<xmax>126</xmax>
+			<ymax>126</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>8dc10aff18f74e9388d64e0b7050f089.jpg</filename>
+	<size/>
+	<width>1044</width>
+	<height>941</height>
+	<depth>3</depth>
+	<object>
+		<name>Rapidash</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>104</xmin>
+			<ymin>94</ymin>
+			<xmax>940</xmax>
+			<ymax>847</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>aef36e9f2ad243d2bf59b18853edc654.jpg</filename>
+	<size/>
+	<width>901</width>
+	<height>901</height>
+	<depth>3</depth>
+	<object>
+		<name>Graveler</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>90</xmin>
+			<ymin>90</ymin>
+			<xmax>811</xmax>
+			<ymax>811</ymax>
+		</bndbox>
+	</object>
+</annotation>

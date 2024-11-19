@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>41a29f99088b40459a20594fd7cb600a.jpg</filename>
+	<size/>
+	<width>208</width>
+	<height>208</height>
+	<depth>3</depth>
+	<object>
+		<name>Exeggcute</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>20</xmin>
+			<ymin>20</ymin>
+			<xmax>188</xmax>
+			<ymax>188</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>80917e17d6564ffcb4efee9cc476bb76.jpg</filename>
+	<size/>
+	<width>883</width>
+	<height>880</height>
+	<depth>3</depth>
+	<object>
+		<name>Scyther</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>88</xmin>
+			<ymin>88</ymin>
+			<xmax>795</xmax>
+			<ymax>792</ymax>
+		</bndbox>
+	</object>
+</annotation>

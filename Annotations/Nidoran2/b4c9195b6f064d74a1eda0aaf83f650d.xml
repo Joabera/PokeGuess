@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>b4c9195b6f064d74a1eda0aaf83f650d.jpg</filename>
+	<size/>
+	<width>700</width>
+	<height>500</height>
+	<depth>3</depth>
+	<object>
+		<name>Nidoran2</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>70</xmin>
+			<ymin>50</ymin>
+			<xmax>630</xmax>
+			<ymax>450</ymax>
+		</bndbox>
+	</object>
+</annotation>

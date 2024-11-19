@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c519a46ca75f41d89f69afadb6ceffe0.jpg</filename>
+	<size/>
+	<width>754</width>
+	<height>759</height>
+	<depth>3</depth>
+	<object>
+		<name>Omanyte</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>75</xmin>
+			<ymin>75</ymin>
+			<xmax>679</xmax>
+			<ymax>684</ymax>
+		</bndbox>
+	</object>
+</annotation>

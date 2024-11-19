@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>66d4ac8afc21482fb056cc5f4db64d7b.jpg</filename>
+	<size/>
+	<width>503</width>
+	<height>511</height>
+	<depth>3</depth>
+	<object>
+		<name>Charmeleon</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>50</xmin>
+			<ymin>51</ymin>
+			<xmax>453</xmax>
+			<ymax>460</ymax>
+		</bndbox>
+	</object>
+</annotation>

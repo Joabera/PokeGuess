@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>e45767045f0d450eb595bd2ff1f625c3.jpg</filename>
+	<size/>
+	<width>400</width>
+	<height>240</height>
+	<depth>3</depth>
+	<object>
+		<name>Raticate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>40</xmin>
+			<ymin>24</ymin>
+			<xmax>360</xmax>
+			<ymax>216</ymax>
+		</bndbox>
+	</object>
+</annotation>

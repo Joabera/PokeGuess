@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>a35d90c912a241fd959501c6f6c4f281.jpg</filename>
+	<size/>
+	<width>841</width>
+	<height>841</height>
+	<depth>3</depth>
+	<object>
+		<name>Ponyta</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>84</xmin>
+			<ymin>84</ymin>
+			<xmax>757</xmax>
+			<ymax>757</ymax>
+		</bndbox>
+	</object>
+</annotation>

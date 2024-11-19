@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0472b05fa20e4cb894e79c51f3d9ea70.jpg</filename>
+	<size/>
+	<width>4000</width>
+	<height>2277</height>
+	<depth>3</depth>
+	<object>
+		<name>Tentacool</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>400</xmin>
+			<ymin>227</ymin>
+			<xmax>3600</xmax>
+			<ymax>2050</ymax>
+		</bndbox>
+	</object>
+</annotation>

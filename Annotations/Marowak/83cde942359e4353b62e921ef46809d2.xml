@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>83cde942359e4353b62e921ef46809d2.jpg</filename>
+	<size/>
+	<width>280</width>
+	<height>300</height>
+	<depth>3</depth>
+	<object>
+		<name>Marowak</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>28</xmin>
+			<ymin>30</ymin>
+			<xmax>252</xmax>
+			<ymax>270</ymax>
+		</bndbox>
+	</object>
+</annotation>

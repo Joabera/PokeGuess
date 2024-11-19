@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>656d0cd27fc940059b8e618791c244b5.jpg</filename>
+	<size/>
+	<width>600</width>
+	<height>594</height>
+	<depth>3</depth>
+	<object>
+		<name>Dewgong</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>60</xmin>
+			<ymin>59</ymin>
+			<xmax>540</xmax>
+			<ymax>535</ymax>
+		</bndbox>
+	</object>
+</annotation>

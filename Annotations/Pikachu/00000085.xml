@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000085.png</filename>
+	<size/>
+	<width>998</width>
+	<height>801</height>
+	<depth>3</depth>
+	<object>
+		<name>Pikachu</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>99</xmin>
+			<ymin>80</ymin>
+			<xmax>899</xmax>
+			<ymax>721</ymax>
+		</bndbox>
+	</object>
+</annotation>

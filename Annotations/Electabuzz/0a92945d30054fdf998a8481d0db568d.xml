@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0a92945d30054fdf998a8481d0db568d.jpg</filename>
+	<size/>
+	<width>1440</width>
+	<height>1386</height>
+	<depth>3</depth>
+	<object>
+		<name>Electabuzz</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>144</xmin>
+			<ymin>138</ymin>
+			<xmax>1296</xmax>
+			<ymax>1248</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>b9c4be58de3343b0a51534170d5df2fe.jpg</filename>
+	<size/>
+	<width>980</width>
+	<height>984</height>
+	<depth>3</depth>
+	<object>
+		<name>Jynx</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>98</xmin>
+			<ymin>98</ymin>
+			<xmax>882</xmax>
+			<ymax>886</ymax>
+		</bndbox>
+	</object>
+</annotation>

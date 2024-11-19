@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>eb300bab0fb44a02a2ddb48d413d4d30.jpg</filename>
+	<size/>
+	<width>719</width>
+	<height>710</height>
+	<depth>3</depth>
+	<object>
+		<name>Gyarados</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>71</xmin>
+			<ymin>71</ymin>
+			<xmax>648</xmax>
+			<ymax>639</ymax>
+		</bndbox>
+	</object>
+</annotation>

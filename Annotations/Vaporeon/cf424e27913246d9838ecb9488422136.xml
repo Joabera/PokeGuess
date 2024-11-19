@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>cf424e27913246d9838ecb9488422136.jpg</filename>
+	<size/>
+	<width>461</width>
+	<height>500</height>
+	<depth>3</depth>
+	<object>
+		<name>Vaporeon</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>46</xmin>
+			<ymin>50</ymin>
+			<xmax>415</xmax>
+			<ymax>450</ymax>
+		</bndbox>
+	</object>
+</annotation>

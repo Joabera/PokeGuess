@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>46c14681165b4f19b6010385b65fbecb.jpg</filename>
+	<size/>
+	<width>704</width>
+	<height>702</height>
+	<depth>3</depth>
+	<object>
+		<name>Seadra</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>70</xmin>
+			<ymin>70</ymin>
+			<xmax>634</xmax>
+			<ymax>632</ymax>
+		</bndbox>
+	</object>
+</annotation>

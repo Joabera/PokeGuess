@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>f35fc1c3349949ccade4f59207f695d4.jpg</filename>
+	<size/>
+	<width>614</width>
+	<height>571</height>
+	<depth>3</depth>
+	<object>
+		<name>Magneton</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>61</xmin>
+			<ymin>57</ymin>
+			<xmax>553</xmax>
+			<ymax>514</ymax>
+		</bndbox>
+	</object>
+</annotation>

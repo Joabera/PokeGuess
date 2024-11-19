@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>17e926527bec4efe881751e7ca61406d.jpg</filename>
+	<size/>
+	<width>796</width>
+	<height>766</height>
+	<depth>3</depth>
+	<object>
+		<name>Poliwrath</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>79</xmin>
+			<ymin>76</ymin>
+			<xmax>717</xmax>
+			<ymax>690</ymax>
+		</bndbox>
+	</object>
+</annotation>

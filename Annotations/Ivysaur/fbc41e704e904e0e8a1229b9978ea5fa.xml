@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>fbc41e704e904e0e8a1229b9978ea5fa.jpg</filename>
+	<size/>
+	<width>831</width>
+	<height>817</height>
+	<depth>3</depth>
+	<object>
+		<name>Ivysaur</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>83</xmin>
+			<ymin>81</ymin>
+			<xmax>748</xmax>
+			<ymax>736</ymax>
+		</bndbox>
+	</object>
+</annotation>

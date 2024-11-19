@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>2d0d2f3a132d406abb0874c06342ee73.jpg</filename>
+	<size/>
+	<width>163</width>
+	<height>161</height>
+	<depth>3</depth>
+	<object>
+		<name>Clefable</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>16</xmin>
+			<ymin>16</ymin>
+			<xmax>147</xmax>
+			<ymax>145</ymax>
+		</bndbox>
+	</object>
+</annotation>

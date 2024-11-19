@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>a2c42db1d4434c4da4d63f8c088891da.jpg</filename>
+	<size/>
+	<width>966</width>
+	<height>952</height>
+	<depth>3</depth>
+	<object>
+		<name>Parasect</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>96</xmin>
+			<ymin>95</ymin>
+			<xmax>870</xmax>
+			<ymax>857</ymax>
+		</bndbox>
+	</object>
+</annotation>

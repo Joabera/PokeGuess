@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>2ad614e5c7b048068f6b76a116bf4c79.jpg</filename>
+	<size/>
+	<width>549</width>
+	<height>549</height>
+	<depth>3</depth>
+	<object>
+		<name>Blastoise</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>54</xmin>
+			<ymin>54</ymin>
+			<xmax>495</xmax>
+			<ymax>495</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>cae029ba496f4bcaaf12f261a6bd4372.jpg</filename>
+	<size/>
+	<width>145</width>
+	<height>145</height>
+	<depth>3</depth>
+	<object>
+		<name>Hypno</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>14</xmin>
+			<ymin>14</ymin>
+			<xmax>131</xmax>
+			<ymax>131</ymax>
+		</bndbox>
+	</object>
+</annotation>

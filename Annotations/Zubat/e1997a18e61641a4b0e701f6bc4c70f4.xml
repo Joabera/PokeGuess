@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>e1997a18e61641a4b0e701f6bc4c70f4.jpg</filename>
+	<size/>
+	<width>207</width>
+	<height>222</height>
+	<depth>3</depth>
+	<object>
+		<name>Zubat</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>20</xmin>
+			<ymin>22</ymin>
+			<xmax>187</xmax>
+			<ymax>200</ymax>
+		</bndbox>
+	</object>
+</annotation>

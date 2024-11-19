@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000180.png</filename>
+	<size/>
+	<width>879</width>
+	<height>597</height>
+	<depth>3</depth>
+	<object>
+		<name>Exeggutor</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>87</xmin>
+			<ymin>59</ymin>
+			<xmax>792</xmax>
+			<ymax>538</ymax>
+		</bndbox>
+	</object>
+</annotation>

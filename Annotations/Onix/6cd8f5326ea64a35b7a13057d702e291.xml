@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>6cd8f5326ea64a35b7a13057d702e291.jpg</filename>
+	<size/>
+	<width>625</width>
+	<height>480</height>
+	<depth>3</depth>
+	<object>
+		<name>Onix</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>62</xmin>
+			<ymin>48</ymin>
+			<xmax>563</xmax>
+			<ymax>432</ymax>
+		</bndbox>
+	</object>
+</annotation>

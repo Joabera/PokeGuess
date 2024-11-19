@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>323faed301ef41b48a71f496df7295f4.jpg</filename>
+	<size/>
+	<width>187</width>
+	<height>180</height>
+	<depth>3</depth>
+	<object>
+		<name>Magikarp</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>18</xmin>
+			<ymin>18</ymin>
+			<xmax>169</xmax>
+			<ymax>162</ymax>
+		</bndbox>
+	</object>
+</annotation>

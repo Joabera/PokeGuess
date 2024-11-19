@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>6c898f7248c6485d9a23efc7196a96ca.jpg</filename>
+	<size/>
+	<width>170</width>
+	<height>175</height>
+	<depth>3</depth>
+	<object>
+		<name>Weezing</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>17</xmin>
+			<ymin>17</ymin>
+			<xmax>153</xmax>
+			<ymax>158</ymax>
+		</bndbox>
+	</object>
+</annotation>

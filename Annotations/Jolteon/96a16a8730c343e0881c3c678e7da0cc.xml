@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>96a16a8730c343e0881c3c678e7da0cc.jpg</filename>
+	<size/>
+	<width>596</width>
+	<height>845</height>
+	<depth>3</depth>
+	<object>
+		<name>Jolteon</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>59</xmin>
+			<ymin>84</ymin>
+			<xmax>537</xmax>
+			<ymax>761</ymax>
+		</bndbox>
+	</object>
+</annotation>

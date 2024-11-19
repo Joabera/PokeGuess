@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>96a9bb53943f4ed990e109b4d4c14cae.jpg</filename>
+	<size/>
+	<width>555</width>
+	<height>510</height>
+	<depth>3</depth>
+	<object>
+		<name>Starmie</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>55</xmin>
+			<ymin>51</ymin>
+			<xmax>500</xmax>
+			<ymax>459</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>d767470f6a6e44f6b3076282d4d416cf.jpg</filename>
+	<size/>
+	<width>995</width>
+	<height>995</height>
+	<depth>3</depth>
+	<object>
+		<name>Dratini</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>99</xmin>
+			<ymin>99</ymin>
+			<xmax>896</xmax>
+			<ymax>896</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>e8d4cf4ee37a471bb92ee42e298eb692.jpg</filename>
+	<size/>
+	<width>723</width>
+	<height>718</height>
+	<depth>3</depth>
+	<object>
+		<name>Aerodactyl</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>72</xmin>
+			<ymin>71</ymin>
+			<xmax>651</xmax>
+			<ymax>647</ymax>
+		</bndbox>
+	</object>
+</annotation>

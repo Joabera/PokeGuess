@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>973400d6720244b99935d1598f7f1bd1.jpg</filename>
+	<size/>
+	<width>701</width>
+	<height>684</height>
+	<depth>3</depth>
+	<object>
+		<name>Magnemite</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>70</xmin>
+			<ymin>68</ymin>
+			<xmax>631</xmax>
+			<ymax>616</ymax>
+		</bndbox>
+	</object>
+</annotation>

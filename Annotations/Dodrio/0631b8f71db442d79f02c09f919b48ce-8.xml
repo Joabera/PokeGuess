@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0631b8f71db442d79f02c09f919b48ce-8.jpg</filename>
+	<size/>
+	<width>407</width>
+	<height>240</height>
+	<depth>3</depth>
+	<object>
+		<name>Dodrio</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>40</xmin>
+			<ymin>24</ymin>
+			<xmax>367</xmax>
+			<ymax>216</ymax>
+		</bndbox>
+	</object>
+</annotation>

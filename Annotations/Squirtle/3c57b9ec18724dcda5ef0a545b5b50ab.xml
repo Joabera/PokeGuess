@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>3c57b9ec18724dcda5ef0a545b5b50ab.jpg</filename>
+	<size/>
+	<width>758</width>
+	<height>777</height>
+	<depth>3</depth>
+	<object>
+		<name>Squirtle</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>75</xmin>
+			<ymin>77</ymin>
+			<xmax>683</xmax>
+			<ymax>700</ymax>
+		</bndbox>
+	</object>
+</annotation>

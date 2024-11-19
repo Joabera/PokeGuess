@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>be63c6d6e5324f9da9ab11443b72c834.jpg</filename>
+	<size/>
+	<width>1056</width>
+	<height>881</height>
+	<depth>3</depth>
+	<object>
+		<name>Spearow</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>105</xmin>
+			<ymin>88</ymin>
+			<xmax>951</xmax>
+			<ymax>793</ymax>
+		</bndbox>
+	</object>
+</annotation>

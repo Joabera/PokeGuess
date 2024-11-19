@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>5e68029f22454b589d4494a9381ee868.jpg</filename>
+	<size/>
+	<width>420</width>
+	<height>416</height>
+	<depth>3</depth>
+	<object>
+		<name>Porygon</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>42</xmin>
+			<ymin>41</ymin>
+			<xmax>378</xmax>
+			<ymax>375</ymax>
+		</bndbox>
+	</object>
+</annotation>

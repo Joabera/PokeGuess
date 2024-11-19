@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>79d80d3f2c7c49bba5774d1f0876a17e.jpg</filename>
+	<size/>
+	<width>805</width>
+	<height>792</height>
+	<depth>3</depth>
+	<object>
+		<name>Ditto</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>80</xmin>
+			<ymin>79</ymin>
+			<xmax>725</xmax>
+			<ymax>713</ymax>
+		</bndbox>
+	</object>
+</annotation>

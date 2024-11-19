@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>4483f1b9886e4896a86c3eb3375fcba2.jpg</filename>
+	<size/>
+	<width>189</width>
+	<height>185</height>
+	<depth>3</depth>
+	<object>
+		<name>Seaking</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>18</xmin>
+			<ymin>18</ymin>
+			<xmax>171</xmax>
+			<ymax>167</ymax>
+		</bndbox>
+	</object>
+</annotation>

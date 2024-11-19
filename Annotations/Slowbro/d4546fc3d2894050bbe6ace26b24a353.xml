@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>d4546fc3d2894050bbe6ace26b24a353.jpg</filename>
+	<size/>
+	<width>985</width>
+	<height>963</height>
+	<depth>3</depth>
+	<object>
+		<name>Slowbro</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>98</xmin>
+			<ymin>96</ymin>
+			<xmax>887</xmax>
+			<ymax>867</ymax>
+		</bndbox>
+	</object>
+</annotation>

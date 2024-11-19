@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>fe85bf1b5e8a4bbdb612bbd27e516906.jpg</filename>
+	<size/>
+	<width>600</width>
+	<height>534</height>
+	<depth>3</depth>
+	<object>
+		<name>Exeggutor</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>60</xmin>
+			<ymin>53</ymin>
+			<xmax>540</xmax>
+			<ymax>481</ymax>
+		</bndbox>
+	</object>
+</annotation>

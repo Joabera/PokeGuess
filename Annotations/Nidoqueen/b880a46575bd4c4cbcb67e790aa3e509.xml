@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>b880a46575bd4c4cbcb67e790aa3e509.jpg</filename>
+	<size/>
+	<width>780</width>
+	<height>875</height>
+	<depth>3</depth>
+	<object>
+		<name>Nidoqueen</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>78</xmin>
+			<ymin>87</ymin>
+			<xmax>702</xmax>
+			<ymax>788</ymax>
+		</bndbox>
+	</object>
+</annotation>

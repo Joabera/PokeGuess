@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>534fc9766fa445aba06328f48469cb7c.jpg</filename>
+	<size/>
+	<width>535</width>
+	<height>520</height>
+	<depth>3</depth>
+	<object>
+		<name>Clefairy</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>53</xmin>
+			<ymin>52</ymin>
+			<xmax>482</xmax>
+			<ymax>468</ymax>
+		</bndbox>
+	</object>
+</annotation>

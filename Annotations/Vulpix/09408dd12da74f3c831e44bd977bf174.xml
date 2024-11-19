@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>09408dd12da74f3c831e44bd977bf174.jpg</filename>
+	<size/>
+	<width>300</width>
+	<height>291</height>
+	<depth>3</depth>
+	<object>
+		<name>Vulpix</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>30</xmin>
+			<ymin>29</ymin>
+			<xmax>270</xmax>
+			<ymax>262</ymax>
+		</bndbox>
+	</object>
+</annotation>

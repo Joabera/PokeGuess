@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>2baf1df2aefc42eca8bb0e6c0ae26a37.jpg</filename>
+	<size/>
+	<width>133</width>
+	<height>133</height>
+	<depth>3</depth>
+	<object>
+		<name>Machop</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>13</xmin>
+			<ymin>13</ymin>
+			<xmax>120</xmax>
+			<ymax>120</ymax>
+		</bndbox>
+	</object>
+</annotation>

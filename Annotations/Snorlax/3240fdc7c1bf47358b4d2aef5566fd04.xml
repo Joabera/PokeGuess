@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>3240fdc7c1bf47358b4d2aef5566fd04.jpg</filename>
+	<size/>
+	<width>260</width>
+	<height>355</height>
+	<depth>3</depth>
+	<object>
+		<name>Snorlax</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>26</xmin>
+			<ymin>35</ymin>
+			<xmax>234</xmax>
+			<ymax>320</ymax>
+		</bndbox>
+	</object>
+</annotation>

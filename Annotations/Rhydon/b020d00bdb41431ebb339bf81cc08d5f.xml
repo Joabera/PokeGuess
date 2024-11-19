@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>b020d00bdb41431ebb339bf81cc08d5f.jpg</filename>
+	<size/>
+	<width>362</width>
+	<height>362</height>
+	<depth>3</depth>
+	<object>
+		<name>Rhydon</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>36</xmin>
+			<ymin>36</ymin>
+			<xmax>326</xmax>
+			<ymax>326</ymax>
+		</bndbox>
+	</object>
+</annotation>

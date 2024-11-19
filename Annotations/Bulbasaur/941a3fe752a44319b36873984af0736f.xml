@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>941a3fe752a44319b36873984af0736f.jpg</filename>
+	<size/>
+	<width>1037</width>
+	<height>985</height>
+	<depth>3</depth>
+	<object>
+		<name>Bulbasaur</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>103</xmin>
+			<ymin>98</ymin>
+			<xmax>934</xmax>
+			<ymax>887</ymax>
+		</bndbox>
+	</object>
+</annotation>

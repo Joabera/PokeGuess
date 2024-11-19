@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>5ff40dfcea3c4d7e9ba636f1af3b7f01.jpg</filename>
+	<size/>
+	<width>300</width>
+	<height>267</height>
+	<depth>3</depth>
+	<object>
+		<name>Chansey</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>30</xmin>
+			<ymin>26</ymin>
+			<xmax>270</xmax>
+			<ymax>241</ymax>
+		</bndbox>
+	</object>
+</annotation>

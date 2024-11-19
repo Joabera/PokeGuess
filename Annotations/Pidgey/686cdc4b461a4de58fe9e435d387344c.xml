@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>686cdc4b461a4de58fe9e435d387344c.jpg</filename>
+	<size/>
+	<width>133</width>
+	<height>133</height>
+	<depth>3</depth>
+	<object>
+		<name>Pidgey</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>13</xmin>
+			<ymin>13</ymin>
+			<xmax>120</xmax>
+			<ymax>120</ymax>
+		</bndbox>
+	</object>
+</annotation>

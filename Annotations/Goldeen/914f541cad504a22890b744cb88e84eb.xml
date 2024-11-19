@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>914f541cad504a22890b744cb88e84eb.jpg</filename>
+	<size/>
+	<width>233</width>
+	<height>240</height>
+	<depth>3</depth>
+	<object>
+		<name>Goldeen</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>23</xmin>
+			<ymin>24</ymin>
+			<xmax>210</xmax>
+			<ymax>216</ymax>
+		</bndbox>
+	</object>
+</annotation>

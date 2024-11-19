@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>6e0e23ce17284030a827d647535dd5c4.jpg</filename>
+	<size/>
+	<width>234</width>
+	<height>234</height>
+	<depth>3</depth>
+	<object>
+		<name>Bellsprout</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>23</xmin>
+			<ymin>23</ymin>
+			<xmax>211</xmax>
+			<ymax>211</ymax>
+		</bndbox>
+	</object>
+</annotation>

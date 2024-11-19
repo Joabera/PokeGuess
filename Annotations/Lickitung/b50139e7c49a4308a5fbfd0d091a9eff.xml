@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>b50139e7c49a4308a5fbfd0d091a9eff.jpg</filename>
+	<size/>
+	<width>404</width>
+	<height>394</height>
+	<depth>3</depth>
+	<object>
+		<name>Lickitung</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>40</xmin>
+			<ymin>39</ymin>
+			<xmax>364</xmax>
+			<ymax>355</ymax>
+		</bndbox>
+	</object>
+</annotation>

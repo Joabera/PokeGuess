@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>12a31ed7b91747d88e129795e07df3f4.jpg</filename>
+	<size/>
+	<width>445</width>
+	<height>445</height>
+	<depth>3</depth>
+	<object>
+		<name>Omastar</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>44</xmin>
+			<ymin>44</ymin>
+			<xmax>401</xmax>
+			<ymax>401</ymax>
+		</bndbox>
+	</object>
+</annotation>

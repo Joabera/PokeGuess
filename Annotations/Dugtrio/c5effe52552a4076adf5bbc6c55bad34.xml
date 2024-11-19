@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>c5effe52552a4076adf5bbc6c55bad34.jpg</filename>
+	<size/>
+	<width>320</width>
+	<height>326</height>
+	<depth>3</depth>
+	<object>
+		<name>Dugtrio</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>32</xmin>
+			<ymin>32</ymin>
+			<xmax>288</xmax>
+			<ymax>294</ymax>
+		</bndbox>
+	</object>
+</annotation>

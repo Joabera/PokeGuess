@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>29cf2256d5324835a3f81687fd257f12.jpg</filename>
+	<size/>
+	<width>318</width>
+	<height>322</height>
+	<depth>3</depth>
+	<object>
+		<name>Machamp</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>31</xmin>
+			<ymin>32</ymin>
+			<xmax>287</xmax>
+			<ymax>290</ymax>
+		</bndbox>
+	</object>
+</annotation>

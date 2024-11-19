@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>a40f79f871b74a82969e9f60b47a0913.jpg</filename>
+	<size/>
+	<width>520</width>
+	<height>507</height>
+	<depth>3</depth>
+	<object>
+		<name>Lapras</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>52</xmin>
+			<ymin>50</ymin>
+			<xmax>468</xmax>
+			<ymax>457</ymax>
+		</bndbox>
+	</object>
+</annotation>

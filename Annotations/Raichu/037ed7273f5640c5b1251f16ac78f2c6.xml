@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>037ed7273f5640c5b1251f16ac78f2c6.jpg</filename>
+	<size/>
+	<width>762</width>
+	<height>806</height>
+	<depth>3</depth>
+	<object>
+		<name>Raichu</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>76</xmin>
+			<ymin>80</ymin>
+			<xmax>686</xmax>
+			<ymax>726</ymax>
+		</bndbox>
+	</object>
+</annotation>

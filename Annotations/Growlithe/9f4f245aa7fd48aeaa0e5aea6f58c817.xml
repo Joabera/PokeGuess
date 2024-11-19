@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>9f4f245aa7fd48aeaa0e5aea6f58c817.jpg</filename>
+	<size/>
+	<width>773</width>
+	<height>769</height>
+	<depth>3</depth>
+	<object>
+		<name>Growlithe</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>77</xmin>
+			<ymin>76</ymin>
+			<xmax>696</xmax>
+			<ymax>693</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>20d2d916b78940528e22b38cad7bbd2f.jpg</filename>
+	<size/>
+	<width>293</width>
+	<height>276</height>
+	<depth>3</depth>
+	<object>
+		<name>Rattata</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>29</xmin>
+			<ymin>27</ymin>
+			<xmax>264</xmax>
+			<ymax>249</ymax>
+		</bndbox>
+	</object>
+</annotation>

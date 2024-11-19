@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>8d3ee9a256ea429da63bda815bca6c70.jpg</filename>
+	<size/>
+	<width>900</width>
+	<height>850</height>
+	<depth>3</depth>
+	<object>
+		<name>Koffing</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>90</xmin>
+			<ymin>85</ymin>
+			<xmax>810</xmax>
+			<ymax>765</ymax>
+		</bndbox>
+	</object>
+</annotation>

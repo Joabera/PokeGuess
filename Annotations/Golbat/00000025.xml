@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000025.jpg</filename>
+	<size/>
+	<width>2256</width>
+	<height>1551</height>
+	<depth>3</depth>
+	<object>
+		<name>Golbat</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>225</xmin>
+			<ymin>155</ymin>
+			<xmax>2031</xmax>
+			<ymax>1396</ymax>
+		</bndbox>
+	</object>
+</annotation>

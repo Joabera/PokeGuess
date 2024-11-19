@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>f2068c20f9bd49638877ab04c37864e7.jpg</filename>
+	<size/>
+	<width>778</width>
+	<height>776</height>
+	<depth>3</depth>
+	<object>
+		<name>Tentacruel</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>77</xmin>
+			<ymin>77</ymin>
+			<xmax>701</xmax>
+			<ymax>699</ymax>
+		</bndbox>
+	</object>
+</annotation>

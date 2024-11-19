@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>8b2bf83cb6134231ba2e00abe9b3570b.jpg</filename>
+	<size/>
+	<width>263</width>
+	<height>261</height>
+	<depth>3</depth>
+	<object>
+		<name>Kingler</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>26</xmin>
+			<ymin>26</ymin>
+			<xmax>237</xmax>
+			<ymax>235</ymax>
+		</bndbox>
+	</object>
+</annotation>

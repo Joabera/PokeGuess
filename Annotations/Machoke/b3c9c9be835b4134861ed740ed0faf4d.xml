@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>b3c9c9be835b4134861ed740ed0faf4d.jpg</filename>
+	<size/>
+	<width>201</width>
+	<height>203</height>
+	<depth>3</depth>
+	<object>
+		<name>Machoke</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>20</xmin>
+			<ymin>20</ymin>
+			<xmax>181</xmax>
+			<ymax>183</ymax>
+		</bndbox>
+	</object>
+</annotation>

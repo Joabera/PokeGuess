@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>032982de8d2046169e17cf7e28e59f17.jpg</filename>
+	<size/>
+	<width>285</width>
+	<height>300</height>
+	<depth>3</depth>
+	<object>
+		<name>Hitmonlee</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>28</xmin>
+			<ymin>30</ymin>
+			<xmax>257</xmax>
+			<ymax>270</ymax>
+		</bndbox>
+	</object>
+</annotation>

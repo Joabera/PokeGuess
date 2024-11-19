@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>88558f0da1ae4447b51bc4d184b1539d.jpg</filename>
+	<size/>
+	<width>1300</width>
+	<height>786</height>
+	<depth>3</depth>
+	<object>
+		<name>Diglett</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>130</xmin>
+			<ymin>78</ymin>
+			<xmax>1170</xmax>
+			<ymax>708</ymax>
+		</bndbox>
+	</object>
+</annotation>

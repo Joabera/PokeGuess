@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>6b246a54400c4a74bc0d758651132d27.jpg</filename>
+	<size/>
+	<width>211</width>
+	<height>211</height>
+	<depth>3</depth>
+	<object>
+		<name>Arcanine</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>21</xmin>
+			<ymin>21</ymin>
+			<xmax>190</xmax>
+			<ymax>190</ymax>
+		</bndbox>
+	</object>
+</annotation>

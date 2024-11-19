@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>00000002.png</filename>
+	<size/>
+	<width>634</width>
+	<height>773</height>
+	<depth>3</depth>
+	<object>
+		<name>Wigglytuff</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>63</xmin>
+			<ymin>77</ymin>
+			<xmax>571</xmax>
+			<ymax>696</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>02ae369b22614783ad9154b7627807f5.jpg</filename>
+	<size/>
+	<width>800</width>
+	<height>800</height>
+	<depth>3</depth>
+	<object>
+		<name>Metapod</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>80</xmin>
+			<ymin>80</ymin>
+			<xmax>720</xmax>
+			<ymax>720</ymax>
+		</bndbox>
+	</object>
+</annotation>

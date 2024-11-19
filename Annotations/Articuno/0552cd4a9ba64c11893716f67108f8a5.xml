@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>0552cd4a9ba64c11893716f67108f8a5.jpg</filename>
+	<size/>
+	<width>375</width>
+	<height>378</height>
+	<depth>3</depth>
+	<object>
+		<name>Articuno</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>37</xmin>
+			<ymin>37</ymin>
+			<xmax>338</xmax>
+			<ymax>341</ymax>
+		</bndbox>
+	</object>
+</annotation>

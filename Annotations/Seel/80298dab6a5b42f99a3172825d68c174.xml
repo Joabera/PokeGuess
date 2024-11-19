@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<annotation>
+	<filename>80298dab6a5b42f99a3172825d68c174.jpg</filename>
+	<size/>
+	<width>200</width>
+	<height>110</height>
+	<depth>3</depth>
+	<object>
+		<name>Seel</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>20</xmin>
+			<ymin>11</ymin>
+			<xmax>180</xmax>
+			<ymax>99</ymax>
+		</bndbox>
+	</object>
+</annotation>
