@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.env
+
+# IDE / tooling
+.vscode/
+.idea/
+.claude/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Training artifacts (keep one canonical checkpoint, ignore the rest)
+*.pth
+!fine_tuned_with_pencil_sketch.pth
+baseline_pokemon_classifier_*.pth
+runs/
+logs/
+visualizations/
+transformed_images/
+
+# Dataset (not redistributed)
+Pokemons/
+Annotations/
+data/
+
+# Misc
+*.rar
+*.zip
