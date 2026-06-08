@@ -1,29 +1,29 @@
-# PokeGuess — Pokémon Image Classifier
+# PokeGuess — Pokémon Image Classifier (Gen 1 & 2)
 
-A deep-learning image classifier that identifies **150 first-generation Pokémon** from a single image. Built with PyTorch using transfer learning on ResNet-18, with a two-phase training pipeline (baseline + stylized fine-tuning) and a Tkinter desktop GUI for live predictions.
+A deep-learning image classifier that identifies **the 251 Pokémon of Generations 1 & 2** from a single image — photo, illustration, or hand-drawn sketch. Built with PyTorch, it pairs a modern **ConvNeXt-Tiny** model with a small **FastAPI web app** that shows the prediction, the official sprite, and even plays the Pokémon's cry.
 
-> A university project I built before the recent wave of AI tools — included here as an end-to-end example of training, fine-tuning, and deploying a custom vision model.
+> Originally a university project (a ResNet-18 Gen-1 classifier); since rebuilt with a self-collected dataset, a stronger backbone, Gen-2 coverage, and a browser UI.
 
 ---
 
 ## Highlights
 
-- **Transfer learning** on a ResNet-18 backbone (ImageNet pre-trained) re-headed for 150 Pokémon classes.
-- **Two-phase training pipeline:**
-  1. *Baseline* — train on color photos with standard augmentations (random crop, horizontal flip, normalization).
-  2. *Stylized fine-tune* — adapt the baseline checkpoint to a **pencil-sketch domain** (grayscale → invert → Gaussian blur → blend), letting the model generalize to drawn/sketched inputs rather than only screenshots.
-- **Cosine/StepLR schedule** with checkpointing of the best validation accuracy each epoch.
-- **Tkinter GUI** that classifies images from disk *or* directly from the clipboard (paste a screenshot, get a prediction + softmax confidence).
-- Self-contained: a single trained checkpoint (`fine_tuned_with_pencil_sketch.pth`) is included so the GUI can be run without retraining.
+- **251 classes, Gen 1 + 2** — trained on a dataset built from official sources (PokéAPI sprites + cropped Pokémon TCG card art), ~9k clean images.
+- **ConvNeXt-Tiny** backbone (ImageNet pre-trained), re-headed for 251 classes — **96.7% test accuracy** on clean images, **93.9%** on sketch-style inputs.
+- **Two-phase training:** color baseline → randomized **sketch** fine-tune (pencil / edge / threshold styles) so it generalizes to drawn inputs.
+- **Two-model auto-routing:** the new Gen-1+2 model detects the generation; for Gen-1 Pokémon it can defer to the original ResNet-18 model (trained on a larger Gen-1 set) when that model is confident.
+- **FastAPI web app:** drag-drop / paste / file-pick, top-3 confidence bars, the official **sprite + cry** from PokéAPI, and a playful "is this a Digimon?" response below 60% confidence.
+- **Reproducible data agent:** `scrape_dataset.py` rebuilds the dataset end-to-end (seed → cards → dedup → CLIP/NSFW filter) with progress bars.
 
 ## Tech Stack
 
 | Layer | Tools |
 |---|---|
-| Model | PyTorch, torchvision (ResNet-18) |
-| Data / Image | Pillow, OpenCV |
-| UI | Tkinter |
-| Training | CUDA (optional), Adam + StepLR |
+| Model | PyTorch, torchvision (ConvNeXt-Tiny, ResNet-18) |
+| Training | CUDA + AMP, AdamW, cosine LR, weighted sampling, TensorBoard |
+| Data / Image | Pillow, OpenCV, imagehash, OpenCLIP, icrawler |
+| Web app | FastAPI, Uvicorn |
+| Frontend | Vanilla HTML/JS, PokéAPI (sprites + cries) |
 
 ---
 
@@ -31,22 +31,25 @@ A deep-learning image classifier that identifies **150 first-generation Pokémon
 
 ```
 PokeGuess/
-├── train_baseline_model.py            # Phase 1: train ResNet-18 on color photos
-├── fine_tune_with_color_variation.py  # Phase 2: fine-tune with pencil-sketch augmentation
-├── test_pokemon_model_gui.py          # Tkinter GUI for live inference
-├── fine_tuned_with_pencil_sketch.pth  # Trained model weights (~45 MB)
+├── app.py                       # FastAPI app — serves the page + /predict (auto-routes 2 models)
+├── classifier.py                # Shared inference (model build + preprocessing)
+├── static/index.html            # Single-page UI: drag-drop/paste, sprite, cry
+├── train.py                     # Training: ConvNeXt-Tiny, both phases (color + --sketch)
+├── sketch.py                    # Randomized pencil/edge/threshold augmentation
+├── scrape_dataset.py            # Dataset-building agent (seed/cards/dedup/clip)
+├── build_class_list.py          # Generates the canonical 251-class list from PokéAPI
+├── class_names_v2.txt           # 251 classes in National Dex order
+├── best_sketch.pth*             # New ConvNeXt model (sketch fine-tuned) — not in git (size)
+├── fine_tuned_with_pencil_sketch.pth   # Legacy ResNet-18 Gen-1 model
 ├── requirements.txt
-├── Final_Report.pdf                   # Full write-up: methodology, experiments, results
 └── README.md
 ```
 
-> The training dataset (~150 folders of Pokémon images) is **not included** in this repo due to size and licensing. See *Dataset* below for the expected layout.
+> Trained model weights (`best_*.pth`, ~112 MB) and the image dataset (`data/`) are **not** committed (size / licensing). Rebuild the dataset with `scrape_dataset.py` and retrain with `train.py`, or host the weights externally.
 
 ---
 
-## Getting Started
-
-### 1. Install dependencies
+## Getting Started (web app)
 
 ```bash
 python -m venv .venv
@@ -56,73 +59,51 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
+
+uvicorn app:app --reload      # then open http://127.0.0.1:8000
 ```
 
-> GPU training is automatic if a CUDA-capable PyTorch build is installed; otherwise it falls back to CPU.
+Drop, paste (Ctrl/Cmd+V), or pick an image. You get the top-3 guesses with confidence bars; on a confident match it shows the official sprite and plays the cry. A small badge notes which model answered (Gen 1+2 vs. the Gen-1 legacy model).
 
-### 2. Run the GUI (uses included weights)
-
-```bash
-python test_pokemon_model_gui.py
-```
-
-You'll get a small window with two buttons:
-- **Select Image** — pick a `.jpg` / `.png` / `.bmp` from disk.
-- **Paste Image** — paste whatever is on your clipboard (great for testing with screenshots).
-
-The prediction and softmax confidence are shown below the image.
-
-> You'll also need `class_names.txt` (one class per line, in the same alphabetical order produced by `torchvision.datasets.ImageFolder`) in the working directory. It is written automatically the first time you run training.
-
-### 3. Train from scratch (optional)
-
-```bash
-# Phase 1 — baseline
-python train_baseline_model.py
-
-# Phase 2 — fine-tune with pencil-sketch augmentation
-python fine_tune_with_color_variation.py
-```
-
-Each script saves the best validation checkpoint to `.pth` and emits a timestamped final model.
+> The app needs `best_sketch.pth` + `best_sketch_classes.txt` (new model) and `fine_tuned_with_pencil_sketch.pth` + `class_names.txt` (legacy). The cry audio is `.ogg` — plays in Chrome/Firefox/Edge.
 
 ---
 
-## Dataset
+## Rebuilding the dataset
 
-Organize your images as one folder per class:
+The dataset is assembled from official, correctly-labeled sources (no random web scraping in the default flow):
 
-```
-Pokemons/
-├── Bulbasaur/
-│   ├── img_0001.jpg
-│   └── ...
-├── Charmander/
-│   └── ...
-└── ... (150 folders)
+```bash
+python build_class_list.py            # -> class_names_v2.txt, pokeapi_slugs.json
+python scrape_dataset.py all          # seed (PokéAPI) + cards (TCG) + dedup + CLIP/NSFW filter
 ```
 
-Then update the `data_folder` path at the bottom of each training script.
+Output is an `ImageFolder` layout in `data/raw/<Name>/`. Each stage is resumable and shows a progress bar. An opt-in `scrape` stage (Bing/DuckDuckGo) exists but is **not** part of `all` — it pulled too much noise.
+
+## Training
+
+```bash
+# Phase 1 — color baseline
+python train.py --data-dir data/raw --epochs 30 --out best_color.pth --out-dir runs/color
+
+# Phase 2 — randomized sketch fine-tune (warm-start from phase 1)
+python train.py --data-dir data/raw --epochs 15 --sketch \
+    --init-weights best_color.pth --lr 5e-5 --out best_sketch.pth --out-dir runs/sketch
+```
+
+Features: stratified train/val/test split, weighted sampling for class imbalance, mixed precision, early stopping, TensorBoard logs, and a confusion-matrix + per-class accuracy report written to the run dir. GPU is used automatically when available (CUDA build of torch).
 
 ---
 
-## Approach & Results
+## Results
 
-The full methodology, experiments, and final metrics are in **[Final_Report.pdf](Final_Report.pdf)**. In short:
+| Model | Classes | Test accuracy |
+|---|---|---|
+| Legacy ResNet-18 | 150 (Gen 1) | — (original project) |
+| ConvNeXt-Tiny, color | 251 (Gen 1+2) | **96.7%** |
+| ConvNeXt-Tiny, sketch fine-tune | 251 (Gen 1+2) | **93.9%** (sketch-style eval) |
 
-- ResNet-18 was chosen for a strong accuracy/parameter trade-off on a modest dataset.
-- The pencil-sketch fine-tune was motivated by the observation that the baseline overfit to clean illustrated artwork and failed on hand-drawn or low-contrast inputs. Training on stylized variants improved robustness on out-of-distribution images at a small cost in raw top-1 accuracy.
-- The classifier is trained on the 150 original Pokémon, with `class_names.txt` mapping output indices back to names.
-
-## What I'd do differently today
-
-This was an early ML project of mine — keeping it here as an honest snapshot. Things I'd change with more experience:
-
-- Replace the global `data_folder` hardcoded path with CLI args (`argparse`) or a small config file.
-- Track experiments with **Weights & Biases** or **TensorBoard** instead of stdout prints.
-- Use **stratified train/val splits** rather than `random_split` to guarantee per-class coverage.
-- Swap Tkinter for a small **FastAPI + web frontend** so the demo runs in the browser.
-- Move the pencil-sketch transform to a `torchvision.transforms.v2`-compatible class for performance.
+The sketch fine-tune trades a few points of clean-image accuracy for robustness on hand-drawn inputs — the intended behavior for a "guess the sketch" demo.
 
 ---
 
