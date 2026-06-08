@@ -8,7 +8,7 @@ import torch.nn as nn
 from torchvision import transforms, models
 
 
-def load_class_names(path="best_sketch_classes.txt"):
+def load_class_names(path="models/best_sketch_classes.txt"):
     with open(path, "r", encoding="utf-8") as f:
         return [line.strip() for line in f if line.strip()]
 

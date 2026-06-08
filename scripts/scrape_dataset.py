@@ -57,9 +57,10 @@ for _stream in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
+# Paths are relative to the repo root (run scripts as `python scripts/<name>.py`).
 DATA_ROOT = "data/raw"
-CLASS_FILE = "class_names_v2.txt"
-SLUG_FILE = "pokeapi_slugs.json"
+CLASS_FILE = "models/class_names_v2.txt"
+SLUG_FILE = "models/pokeapi_slugs.json"
 HEADERS = {"User-Agent": "PokeGuess-dataset-builder/1.0"}
 # pokemoncard.io 403s non-browser agents.
 BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "

@@ -19,12 +19,12 @@ from classifier import (PokemonClassifier, load_class_names,
                         IMAGENET_NORM, HALF_NORM)
 
 # --- New model: ConvNeXt-Tiny, Gen 1+2 (251 classes) ----------------------- #
-NEW_MODEL_PATH = "best_sketch.pth"
-NEW_CLASSES = load_class_names("best_sketch_classes.txt")
+NEW_MODEL_PATH = "models/best_sketch.pth"
+NEW_CLASSES = load_class_names("models/best_sketch_classes.txt")
 
 # --- Legacy model: ResNet-18, Gen 1 only, trained on a larger dataset ------ #
-LEGACY_MODEL_PATH = "fine_tuned_with_pencil_sketch.pth"
-LEGACY_CLASSES = load_class_names("class_names.txt")
+LEGACY_MODEL_PATH = "models/fine_tuned_with_pencil_sketch.pth"
+LEGACY_CLASSES = load_class_names("models/class_names.txt")
 
 # Confidence above which we trust the legacy Gen-1 model (when the new model
 # already agrees the input is a Gen-1 Pokemon). Tunable via env.
@@ -32,7 +32,7 @@ LEGACY_TRUST = float(os.environ.get("LEGACY_TRUST", "0.55")) * 100
 
 # Gen-1 = National Dex #1..151 = first 151 entries of the canonical dex-order
 # list. Used to decide whether to consult the legacy model at all.
-_dex = load_class_names("class_names_v2.txt")
+_dex = load_class_names("models/class_names_v2.txt")
 GEN1_NAMES = set(_dex[:151])
 
 # Legacy class list has messy/duplicate spellings; map them to canonical names

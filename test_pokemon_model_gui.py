@@ -63,7 +63,7 @@ class PokemonApp:
         self.result_label.config(text=f"Prediction: {prediction} ({confidence:.2f}%)")
 
 if __name__ == "__main__":
-    model_path = 'best_sketch.pth'
+    model_path = 'models/best_sketch.pth'
     classifier = PokemonClassifier(model_path, class_names)
 
     root = tk.Tk()

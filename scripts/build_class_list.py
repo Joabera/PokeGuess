@@ -44,8 +44,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-id", type=int, default=251,
                     help="Highest National Dex id to include (251 = end of Gen 2).")
-    ap.add_argument("--out", default="class_names_v2.txt")
-    ap.add_argument("--slugs-out", default="pokeapi_slugs.json")
+    ap.add_argument("--out", default="models/class_names_v2.txt")
+    ap.add_argument("--slugs-out", default="models/pokeapi_slugs.json")
     ap.add_argument("--sleep", type=float, default=0.05,
                     help="Delay between requests to be polite to the API.")
     args = ap.parse_args()
