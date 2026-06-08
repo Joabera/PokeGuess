@@ -1,2 +1,0 @@
-# Git LFS tracking for model weights (required on Hugging Face for files >10MB).
-*.pth filter=lfs diff=lfs merge=lfs -text
