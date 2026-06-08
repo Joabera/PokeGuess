@@ -43,8 +43,10 @@ Dockerfile.
    git remote add space https://huggingface.co/spaces/<user>/pokeguess
 
    # The models are gitignored for GitHub (too big). Force-add them for the
-   # Space only — .gitattributes already routes *.pth through Git LFS.
+   # Space only, tracked via Git LFS (HF requires LFS for files >10MB).
    git lfs install
+   git lfs track "*.pth"
+   git add .gitattributes
    git add -f best_sketch.pth best_sketch_classes.txt \
               fine_tuned_with_pencil_sketch.pth class_names.txt class_names_v2.txt
    git commit -m "Add model weights for Space deploy"
