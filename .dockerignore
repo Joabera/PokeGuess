@@ -1,0 +1,23 @@
+# Keep the image lean — exclude everything not needed to serve predictions.
+.git
+.venv
+__pycache__
+*.pyc
+data/
+runs/
+logs/
+visualizations/
+transformed_images/
+card_index.json
+Final_Report.pdf
+
+# Training / dataset tooling (not used at serve time)
+train.py
+sketch.py
+scrape_dataset.py
+build_class_list.py
+test_pokemon_model_gui.py
+fine_tune_with_color_variation.py
+train_baseline_model.py
+best_color.pth
+best_color_classes.txt

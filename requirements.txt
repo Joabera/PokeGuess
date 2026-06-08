@@ -3,3 +3,13 @@ torchvision>=0.15
 Pillow>=10.0
 opencv-python>=4.8
 tqdm>=4.65
+tensorboard>=2.15        # training metrics logging (train.py)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+
+# Dataset-building agent (scrape_dataset.py)
+icrawler>=0.6.7        # Bing image scraping
+ddgs>=9.0              # DuckDuckGo image scraping (2nd source; Google blocks scrapers)
+imagehash>=4.3         # perceptual-hash dedup
+open_clip_torch>=2.24  # CLIP zero-shot junk filter (clip stage only)
