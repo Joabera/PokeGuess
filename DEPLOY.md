@@ -47,8 +47,10 @@ Dockerfile.
    git lfs install
    git lfs track "*.pth"
    git add .gitattributes
-   git add -f best_sketch.pth best_sketch_classes.txt \
-              fine_tuned_with_pencil_sketch.pth class_names.txt class_names_v2.txt
+   # best_sketch.pth is gitignored (too big for GitHub); the rest live in models/
+   git add -f models/best_sketch.pth
+   git add models/best_sketch_classes.txt models/fine_tuned_with_pencil_sketch.pth \
+           models/class_names.txt models/class_names_v2.txt
    git commit -m "Add model weights for Space deploy"
 
    # Push this branch to the Space's main
