@@ -1,0 +1,6 @@
+# Slim runtime deps for serving the web app (no training/scraping deps).
+# torch + torchvision are installed from the CPU wheel index in the Dockerfile.
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+Pillow>=10.0
