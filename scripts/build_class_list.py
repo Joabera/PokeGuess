@@ -34,6 +34,8 @@ def display_name(slug):
         "mr-mime": "Mr. Mime",
         "farfetchd": "Farfetch'd",
         "ho-oh": "Ho-Oh",
+        "mime-jr": "Mime Jr.",
+        "deoxys-normal": "Deoxys",
     }
     if slug in special:
         return special[slug]

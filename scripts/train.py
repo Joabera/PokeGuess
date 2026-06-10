@@ -265,8 +265,16 @@ def main():
     model = build_model(args.backbone, len(classes), args.freeze_backbone).to(device)
     if args.init_weights:
         state = torch.load(args.init_weights, map_location=device)
-        model.load_state_dict(state)
-        print(f"Warm-started from {args.init_weights}")
+        # Tolerate a different classifier head (e.g. warm-starting a 386-class
+        # model from a 251-class checkpoint): load every tensor whose shape
+        # matches, leave the rest (the new head) at their fresh init.
+        model_sd = model.state_dict()
+        filtered = {k: v for k, v in state.items()
+                    if k in model_sd and model_sd[k].shape == v.shape}
+        model.load_state_dict(filtered, strict=False)
+        skipped = len(model_sd) - len(filtered)
+        print(f"Warm-started from {args.init_weights} "
+              f"({len(filtered)} tensors loaded, {skipped} left at fresh init)")
 
     criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
     optimizer = torch.optim.AdamW(

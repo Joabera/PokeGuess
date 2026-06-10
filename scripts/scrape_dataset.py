@@ -70,10 +70,12 @@ BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
 # --------------------------------------------------------------------------- #
 # Shared helpers
 # --------------------------------------------------------------------------- #
-def load_classes(min_id=1, max_id=251, only=None):
+def load_classes(min_id=1, max_id=None, only=None):
     """Return list of (dex_index, display_name, pokeapi_slug)."""
     names = [l.strip() for l in open(CLASS_FILE, encoding="utf-8") if l.strip()]
     slugs = json.load(open(SLUG_FILE, encoding="utf-8"))
+    if max_id is None:
+        max_id = len(names)  # follow the class file, don't hardcode a gen cap
     out = []
     for i, name in enumerate(names, start=1):
         if i < min_id or i > max_id:
@@ -513,7 +515,8 @@ def main():
     ap.add_argument("stage",
                     choices=["seed", "cards", "scrape", "dedup", "clip", "purge", "all"])
     ap.add_argument("--min-id", type=int, default=1)
-    ap.add_argument("--max-id", type=int, default=251)
+    ap.add_argument("--max-id", type=int, default=None,
+                    help="Highest dex id (default: all classes in the class file).")
     ap.add_argument("--only", nargs="*", help="Limit to specific Pokemon names.")
     ap.add_argument("--per-class", type=int, default=120, help="Target scraped images/class.")
     ap.add_argument("--engines", nargs="+", choices=["bing", "ddg"],

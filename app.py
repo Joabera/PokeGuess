@@ -62,7 +62,7 @@ def _route(image, top_k):
         legacy_preds = [(LEGACY_FIX.get(n, n), c) for n, c in legacy_preds]
         if legacy_preds[0][1] >= LEGACY_TRUST:
             return legacy_preds, "legacy-gen1"
-    return new_preds, "gen1+2"
+    return new_preds, "gen1-3"
 
 
 @app.post("/predict")
