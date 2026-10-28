@@ -64,4 +64,26 @@ public class GuessApiController(PokeGuessDb db, InferenceClient inference, ILogg
 
         return Ok(new { guessId, model = result.Model, predictions = result.Predictions });
     }
+
+    public record FeedbackRequest(bool IsCorrect, string? ActualName);
+
+    [HttpPost("{id:int}/feedback")]
+    public async Task<IActionResult> Feedback(int id, FeedbackRequest body, [FromServices] Pokedex dex, CancellationToken ct)
+    {
+        string? actual = null;
+        if (!body.IsCorrect && !dex.TryCanonical(body.ActualName, out actual))
+            return BadRequest(new { error = "Pick a Pokémon from the list." });
+
+        // One atomic conditional UPDATE: only the first feedback for a guess wins.
+        var updated = await db.Guesses
+            .Where(g => g.Id == id && g.IsCorrect == null)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(g => g.IsCorrect, body.IsCorrect)
+                .SetProperty(g => g.ActualName, g => body.IsCorrect ? g.PredictedName : actual), ct);
+
+        if (updated == 1) return NoContent();
+        return await db.Guesses.AnyAsync(g => g.Id == id, ct)
+            ? Conflict(new { error = "Feedback already recorded." })
+            : NotFound();
+    }
 }
