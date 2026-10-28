@@ -19,7 +19,7 @@ Two phases (the same script, different flags):
       --init-weights best_color.pth --lr 5e-5 --out best_sketch.pth
 
 NOTE: trains with ImageNet normalization (mean/std below). The inference app
-(classifier.py) must use the SAME normalization for the new checkpoint.
+(inference/preprocess.py) must use the SAME normalization for the new checkpoint.
 """
 import argparse
 import csv

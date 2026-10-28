@@ -51,7 +51,7 @@ PokeGuess/
 │   ├── class_names_v2.txt      # 386 classes in National Dex order
 │   └── pokeapi_slugs.json      # Display-name → PokéAPI slug map
 │
-├── scripts/                # Data + training tooling
+├── training/                # Data + training tooling
 │   ├── train.py                # ConvNeXt-Tiny training, both phases (color + --sketch)
 │   ├── sketch.py               # Randomized pencil/edge/threshold augmentation
 │   ├── scrape_dataset.py       # Dataset-building agent (seed/cards/dedup/clip)
@@ -63,7 +63,7 @@ PokeGuess/
 └── README.md
 ```
 
-> Large weights (`best_*.pth`, ~112 MB) and the image dataset (`data/`) are **not** committed (size / licensing). Rebuild the dataset with `scripts/scrape_dataset.py` and retrain with `scripts/train.py`, or host the weights externally (see `DEPLOY.md`). Run scripts from the repo root, e.g. `python scripts/train.py`.
+> Large weights (`best_*.pth`, ~112 MB) and the image dataset (`data/`) are **not** committed (size / licensing). Rebuild the dataset with `training/scrape_dataset.py` and retrain with `training/train.py`, or host the weights externally (see `DEPLOY.md`). Run scripts from the repo root, e.g. `python training/train.py`.
 
 ---
 
@@ -92,8 +92,8 @@ Drop, paste (Ctrl/Cmd+V), or pick an image. You get the top-3 guesses with confi
 The dataset is assembled from official, correctly-labeled sources (no random web scraping in the default flow):
 
 ```bash
-python scripts/build_class_list.py    # -> models/class_names_v2.txt, models/pokeapi_slugs.json
-python scripts/scrape_dataset.py all  # seed (PokéAPI) + cards (TCG) + dedup + CLIP/NSFW filter
+python training/build_class_list.py    # -> models/class_names_v2.txt, models/pokeapi_slugs.json
+python training/scrape_dataset.py all  # seed (PokéAPI) + cards (TCG) + dedup + CLIP/NSFW filter
 ```
 
 Output is an `ImageFolder` layout in `data/raw/<Name>/`. Each stage is resumable and shows a progress bar. An opt-in `scrape` stage (Bing/DuckDuckGo) exists but is **not** part of `all` — it pulled too much noise.
@@ -102,11 +102,11 @@ Output is an `ImageFolder` layout in `data/raw/<Name>/`. Each stage is resumable
 
 ```bash
 # Phase 1 — color baseline
-python scripts/train.py --data-dir data/raw --epochs 30 \
+python training/train.py --data-dir data/raw --epochs 30 \
     --out models/best_color.pth --out-dir runs/color
 
 # Phase 2 — randomized sketch fine-tune (warm-start from phase 1)
-python scripts/train.py --data-dir data/raw --epochs 15 --sketch \
+python training/train.py --data-dir data/raw --epochs 15 --sketch \
     --init-weights models/best_color.pth --lr 5e-5 \
     --out models/best_sketch.pth --out-dir runs/sketch
 ```

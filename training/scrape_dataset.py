@@ -57,7 +57,7 @@ for _stream in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-# Paths are relative to the repo root (run scripts as `python scripts/<name>.py`).
+# Paths are relative to the repo root (run scripts as `python training/<name>.py`).
 DATA_ROOT = "data/raw"
 CLASS_FILE = "models/class_names_v2.txt"
 SLUG_FILE = "models/pokeapi_slugs.json"
