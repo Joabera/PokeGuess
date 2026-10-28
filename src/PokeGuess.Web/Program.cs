@@ -7,7 +7,8 @@ using PokeGuess.Web.Services;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddXmlSerializerFormatters();
+builder.Services.AddScoped<StatsService>();
 
 // SQL Server (Azure SQL) in production; SQLite for local dev and tests.
 var useSqlServer = config["Database:Provider"] == "SqlServer";

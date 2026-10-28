@@ -1,0 +1,85 @@
+@using System.Globalization
+@model PokeGuess.Web.Services.StatsDto
+@{
+    ViewData["Title"] = "Stats";
+    string Pct(double? a) => a is null ? "—" : a.Value.ToString("0.0", CultureInfo.InvariantCulture) + "%";
+}
+
+<h1 class="h3 mb-1">Model stats</h1>
+<p class="text-muted mb-4">Live accuracy from your ✓ / ✗ feedback.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-4"><div class="stat-card"><div class="stat-value">@Model.TotalGuesses</div><div class="stat-label">guesses</div></div></div>
+    <div class="col-4"><div class="stat-card"><div class="stat-value">@Model.WithFeedback</div><div class="stat-label">with feedback</div></div></div>
+    <div class="col-4"><div class="stat-card"><div class="stat-value">@Pct(Model.Accuracy)</div><div class="stat-label">accuracy</div></div></div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <h2 class="h6">By model</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-dark">
+                <thead><tr><th>Model</th><th class="text-end">Feedback</th><th class="text-end">Accuracy</th></tr></thead>
+                <tbody>
+                    @foreach (var m in Model.ByModel)
+                    {
+                        <tr><td>@(m.Key == "legacy-gen1" ? "Gen 1 specialist" : "Gen 1–3 model")</td><td class="text-end">@m.WithFeedback</td><td class="text-end">@Pct(m.Accuracy)</td></tr>
+                    }
+                    @if (Model.ByModel.Count == 0)
+                    {
+                        <tr><td colspan="3" class="text-muted">No guesses yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2 class="h6">By generation</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-dark">
+                <thead><tr><th>Generation</th><th class="text-end">Feedback</th><th class="text-end">Accuracy</th></tr></thead>
+                <tbody>
+                    @foreach (var g in Model.ByGeneration)
+                    {
+                        <tr><td>@g.Key</td><td class="text-end">@g.WithFeedback</td><td class="text-end">@Pct(g.Accuracy)</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2 class="h6">Most guessed</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-dark">
+                <tbody>
+                    @foreach (var n in Model.MostGuessed)
+                    {
+                        <tr><td>@n.Name</td><td class="text-end">@n.Count</td></tr>
+                    }
+                    @if (Model.MostGuessed.Count == 0)
+                    {
+                        <tr><td class="text-muted">No guesses yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2 class="h6">Top mix-ups</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-dark">
+                <thead><tr><th>Guessed</th><th>Actually</th><th class="text-end">Times</th></tr></thead>
+                <tbody>
+                    @foreach (var m in Model.TopMixUps)
+                    {
+                        <tr><td>@m.Predicted</td><td>@m.Actual</td><td class="text-end">@m.Count</td></tr>
+                    }
+                    @if (Model.TopMixUps.Count == 0)
+                    {
+                        <tr><td colspan="3" class="text-muted">No mix-ups reported.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
