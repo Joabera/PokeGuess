@@ -1,3 +1,5 @@
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using PokeGuess.Web.Data;
 using PokeGuess.Web.Services;
@@ -19,7 +21,43 @@ builder.Services.AddSingleton(_ => Pokedex.Load(
     Path.Combine(AppContext.BaseDirectory, "Data", "class_names_v2.txt"),
     Path.Combine(AppContext.BaseDirectory, "Data", "pokeapi_slugs.json")));
 
+builder.Services.AddHttpClient<InferenceClient>(http =>
+{
+    http.BaseAddress = new Uri(config["Inference:BaseUrl"]!);
+    http.DefaultRequestHeaders.Add("X-Api-Key", config["Inference:ApiKey"]);
+    http.Timeout = TimeSpan.FromSeconds(30); // allows for an inference cold start
+});
+
+// App Service's front end is the only proxy, so trust X-Forwarded-For from it.
+builder.Services.Configure<ForwardedHeadersOptions>(o =>
+{
+    o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    o.KnownIPNetworks.Clear();
+    o.KnownProxies.Clear();
+});
+
+// Inference costs CPU we pay for: cap guesses per client IP.
+builder.Services.AddRateLimiter(o =>
+{
+    o.AddPolicy("guess", http => RateLimitPartition.GetFixedWindowLimiter(
+        http.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = config.GetValue("RateLimit:GuessPerMinute", 10),
+            Window = TimeSpan.FromMinutes(1),
+            QueueLimit = 0,
+        }));
+    o.OnRejected = (ctx, ct) =>
+    {
+        ctx.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        return new ValueTask(ctx.HttpContext.Response.WriteAsJsonAsync(
+            new { error = "Slow down, trainer, try again in a minute." }, ct));
+    };
+});
+
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 // Migrations are generated for SQL Server only; SQLite just creates the schema.
 using (var scope = app.Services.CreateScope())
@@ -36,6 +74,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseRateLimiter();
 
 app.MapStaticAssets();
 

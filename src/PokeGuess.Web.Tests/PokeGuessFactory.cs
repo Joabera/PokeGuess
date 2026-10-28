@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PokeGuess.Web.Data;
+using PokeGuess.Web.Services;
 
 namespace PokeGuess.Web.Tests;
 
@@ -32,6 +33,7 @@ public sealed class PokeGuessFactory : WebApplicationFactory<Program>
             // EF Core composes AddDbContext configs, so drop the app's before adding ours.
             services.RemoveAll<IDbContextOptionsConfiguration<PokeGuessDb>>();
             services.AddDbContext<PokeGuessDb>(o => o.UseSqlite(Connection));
+            services.AddHttpClient<InferenceClient>().ConfigurePrimaryHttpMessageHandler(() => Inference);
         });
     }
 
