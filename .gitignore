@@ -44,6 +44,8 @@ card_index.json
 # Rebuild artifacts
 *.onnx
 *.db
+*.db-shm
+*.db-wal
 bin/
 obj/
 inference/models/
