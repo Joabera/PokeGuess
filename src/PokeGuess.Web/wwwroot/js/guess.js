@@ -21,10 +21,14 @@ $(function () {
   if (window.matchMedia("(pointer: coarse)").matches) $("#cameraBtn").removeClass("d-none");
 
   // --- Picking an image ---------------------------------------------------
-  $("#pickBtn").on("click", e => { e.stopPropagation(); $("#fileInput").trigger("click"); });
-  $("#cameraBtn").on("click", e => { e.stopPropagation(); $("#cameraInput").trigger("click"); });
-  $drop.on("click", () => $("#fileInput").trigger("click"));
-  $drop.on("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("#fileInput").trigger("click"); } });
+  // Native .click(), not jQuery .trigger(): the inputs live inside #drop, and trigger()
+  // runs #drop's click handler again on the way up, recursing until the stack overflows.
+  const openPicker = id => document.getElementById(id).click();
+  $("#fileInput, #cameraInput").on("click", e => e.stopPropagation());
+  $("#pickBtn").on("click", e => { e.stopPropagation(); openPicker("fileInput"); });
+  $("#cameraBtn").on("click", e => { e.stopPropagation(); openPicker("cameraInput"); });
+  $drop.on("click", () => openPicker("fileInput"));
+  $drop.on("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPicker("fileInput"); } });
   $("#fileInput, #cameraInput").on("change", function () {
     if (this.files[0]) handleFile(this.files[0]);
     this.value = "";
