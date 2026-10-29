@@ -1,119 +1,95 @@
 # PokeGuess — Pokémon Image Classifier (Gen 1–3)
 
-### 👉 [**Try it live on Hugging Face Spaces**](https://huggingface.co/spaces/JTemotio/pokeguess)
+**Live:** _link added after first deploy_
 
-[![Live Demo](https://img.shields.io/badge/🤗%20Spaces-Try%20it%20live-yellow)](https://huggingface.co/spaces/JTemotio/pokeguess)
+Identifies **the 386 Pokémon of Generations 1–3** from a photo, illustration, or hand-drawn sketch. You drop, paste, or snap an image. PokeGuess shows its top 3 guesses, the official sprite, and the Pokémon's cry, then asks whether it got it right. That feedback feeds a live accuracy dashboard.
 
-A deep-learning image classifier that identifies **the 386 Pokémon of Generations 1–3** from a single image — photo, illustration, or hand-drawn sketch. Built with PyTorch, it pairs a modern **ConvNeXt-Tiny** model with a small **FastAPI web app** that shows the prediction, the official sprite, and even plays the Pokémon's cry.
+An **ASP.NET Core MVC** web app (C#, jQuery, EF Core + Azure SQL) sits in front of a **Flask** inference microservice running two **ONNX** models. Both are deployed to **Azure App Service** by GitHub Actions.
 
-> Originally a university project (a ResNet-18 Gen-1 classifier); since rebuilt with a self-collected dataset, a stronger backbone, Gen 2–3 coverage, and a browser UI.
+> Originally a university project (a ResNet-18 Gen-1 classifier), then rebuilt with a self-collected dataset and ConvNeXt, and now re-platformed onto .NET + Azure.
 
----
-
-## Highlights
-
-- **386 classes, Gen 1–3** — trained on a dataset built from official sources (PokéAPI sprites + cropped Pokémon TCG card art), ~13k clean images.
-- **ConvNeXt-Tiny** backbone (ImageNet pre-trained), re-headed for 386 classes — **98.7% test accuracy** on clean images, **95.8%** on sketch-style inputs.
-- **Two-phase training:** color baseline → randomized **sketch** fine-tune (pencil / edge / threshold styles) so it generalizes to drawn inputs.
-- **Two-model auto-routing:** the new Gen-1–3 model detects the generation; for Gen-1 Pokémon it can defer to the original ResNet-18 model (trained on a larger Gen-1 set) when that model is confident.
-- **FastAPI web app:** drag-drop / paste / file-pick, top-3 confidence bars, the official **sprite + cry** from PokéAPI, and a playful "is this a Digimon?" response below 60% confidence.
-- **Reproducible data agent:** `scrape_dataset.py` rebuilds the dataset end-to-end (seed → cards → dedup → CLIP/NSFW filter) with progress bars.
-
-## Tech Stack
-
-| Layer | Tools |
-|---|---|
-| Model | PyTorch, torchvision (ConvNeXt-Tiny, ResNet-18) |
-| Training | CUDA + AMP, AdamW, cosine LR, weighted sampling, TensorBoard |
-| Data / Image | Pillow, OpenCV, imagehash, OpenCLIP, icrawler |
-| Web app | FastAPI, Uvicorn |
-| Frontend | Vanilla HTML/JS, PokéAPI (sprites + cries) |
-
----
-
-## Project Structure
+## Architecture
 
 ```
-PokeGuess/
-├── app.py                  # FastAPI app — serves the page + /predict (auto-routes 2 models)
-├── classifier.py           # Shared inference (model build + preprocessing)
-├── static/index.html       # Single-page UI: drag-drop/paste, sprite, cry
-├── test_pokemon_model_gui.py   # Optional Tkinter desktop GUI
-├── Dockerfile              # Container for Hugging Face Spaces (see DEPLOY.md)
-├── requirements.txt        # Full deps (training + dataset tooling)
-├── requirements-app.txt    # Slim runtime deps (serving only)
-│
-├── models/                 # Weights + class lists
-│   ├── best_sketch.pth*        # New ConvNeXt model (sketch fine-tuned) — not in git (size)
-│   ├── fine_tuned_with_pencil_sketch.pth   # Legacy ResNet-18 Gen-1 model
-│   ├── best_sketch_classes.txt # 386 classes (ImageFolder order; used by the app)
-│   ├── class_names.txt         # Legacy 154-class list
-│   ├── class_names_v2.txt      # 386 classes in National Dex order
-│   └── pokeapi_slugs.json      # Display-name → PokéAPI slug map
-│
-├── training/                # Data + training tooling
-│   ├── train.py                # ConvNeXt-Tiny training, both phases (color + --sketch)
-│   ├── sketch.py               # Randomized pencil/edge/threshold augmentation
-│   ├── scrape_dataset.py       # Dataset-building agent (seed/cards/dedup/clip)
-│   └── build_class_list.py     # Generates the canonical dex-ordered class list from PokéAPI
-│
-├── legacy/                 # Original Gen-1 training scripts (kept for history)
-├── docs/Final_Report.pdf   # Original project write-up
-├── DEPLOY.md               # Hugging Face Spaces deployment guide
-└── README.md
+Browser (MVC views + jQuery)
+   │  AJAX: POST /api/guess (image)        POST /api/guess/{id}/feedback
+   ▼
+ASP.NET Core MVC  (C#, .NET 10) ── Azure App Service
+   │  HttpClient → POST /predict (multipart, X-Api-Key)     EF Core
+   ▼                                                        ▼
+Flask inference (Python) ── Azure App Service              Azure SQL (SQLite locally)
+   ONNX Runtime: ConvNeXt-Tiny (Gen 1–3) + ResNet-18 (Gen 1)
 ```
 
-> Large weights (`best_*.pth`, ~112 MB) and the image dataset (`data/`) are **not** committed (size / licensing). Rebuild the dataset with `training/scrape_dataset.py` and retrain with `training/train.py`, or host the weights externally (see `DEPLOY.md`). Run scripts from the repo root, e.g. `python training/train.py`.
+- **The browser only talks to the MVC app.** MVC calls Flask server-side with a shared API key, so there's no CORS and no public model API.
+- **Two-model routing:** ConvNeXt decides the generation. For Gen 1 it defers to the original ResNet-18 (trained on more Gen 1 data) when that model is ≥ 55% confident. The UI shows which model answered.
+- **Feedback loop:** every guess is stored (never the image). ✓/✗ feedback powers `/Stats`: accuracy overall, by model, and by generation, plus the most common mix-ups.
 
----
+## What's where
 
-## Getting Started (web app)
+| Area | Tech | Path |
+|---|---|---|
+| Web app, pages, REST API | ASP.NET Core MVC (C#), Razor, Bootstrap 5, jQuery AJAX | `src/PokeGuess.Web` |
+| Data | EF Core, Azure SQL / SQLite, aggregate queries | `src/PokeGuess.Web/Data`, `Services/StatsService.cs` |
+| Stats API | `GET /api/stats`, JSON by default, **XML** with `Accept: application/xml` | `Controllers/StatsController.cs` |
+| Inference service | Python, Flask, ONNX Runtime, gunicorn | `inference/` |
+| Tests | xUnit + `WebApplicationFactory`, pytest | `src/PokeGuess.Web.Tests`, `inference/tests` |
+| Training + export | PyTorch, torchvision, ONNX parity check | `training/` |
+| Infra + CI/CD | az CLI, GitHub Actions, OIDC login | `infra/setup.sh`, `.github/workflows` |
+
+Hardening: 5 MB upload cap, a per-IP rate limit on guesses (10/min, `X-Forwarded-For`-aware behind Azure's front end), atomic one-time feedback (conditional `UPDATE`), and graceful 503 handling while the inference service wakes up. Mobile: responsive layout, camera capture, and client-side downscaling of large photos before upload.
+
+## Run locally
+
+Needs the .NET 10 SDK and Python 3.12+.
 
 ```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS / Linux
-source .venv/bin/activate
+# 1. Models (ONNX, published as a GitHub release; ~160 MB)
+gh release download models-v1 -p "*.onnx" -D inference/models
+cp models/best_sketch_classes.txt models/class_names.txt models/class_names_v2.txt inference/models/
 
-pip install -r requirements.txt
+# 2. Inference service → http://127.0.0.1:5000
+cd inference
+python -m venv .venv && .venv/Scripts/pip install -r requirements-dev.txt   # macOS/Linux: .venv/bin/pip
+INFERENCE_API_KEY=dev MODEL_DIR=models .venv/Scripts/flask --app app.py run
+cd ..
 
-uvicorn app:app --reload      # then open http://127.0.0.1:8000
+# 3. Web app (SQLite, created automatically) → http://localhost:5252
+dotnet user-secrets set Inference:ApiKey dev --project src/PokeGuess.Web
+dotnet run --project src/PokeGuess.Web
 ```
 
-Drop, paste (Ctrl/Cmd+V), or pick an image. You get the top-3 guesses with confidence bars; on a confident match it shows the official sprite and plays the cry. A small badge notes which model answered (Gen 1–3 vs. the Gen-1 legacy model).
+Tests: `dotnet test` and `cd inference && pytest`.
 
-> The app needs the model files under `models/` (`best_sketch.pth` + `best_sketch_classes.txt` for the new model, `fine_tuned_with_pencil_sketch.pth` + `class_names.txt` for the legacy one). The cry audio is `.ogg` — plays in Chrome/Firefox/Edge.
-
----
-
-## Rebuilding the dataset
-
-The dataset is assembled from official, correctly-labeled sources (no random web scraping in the default flow):
+## Deploy to Azure
 
 ```bash
-python training/build_class_list.py    # -> models/class_names_v2.txt, models/pokeapi_slugs.json
-python training/scrape_dataset.py all  # seed (PokéAPI) + cards (TCG) + dedup + CLIP/NSFW filter
+az login && gh auth login
+bash infra/setup.sh        # creates the resource group, B1 plan, 2 web apps, Azure SQL free offer, OIDC identity, repo variables
+git push origin main       # the Deploy workflow tests, then ships both apps
 ```
 
-Output is an `ImageFolder` layout in `data/raw/<Name>/`. Each stage is resumable and shows a progress bar. An opt-in `scrape` stage (Bing/DuckDuckGo) exists but is **not** part of `all` — it pulled too much noise.
+Cost is about $13/month for the B1 plan, which hosts both apps; the SQL database is on the free offer. Tear down with `az group delete -n pokeguess-rg --yes`.
 
-## Training
+## Training & export
+
+The dataset comes from official sources (PokéAPI sprites + cropped TCG card art, about 13k images):
 
 ```bash
-# Phase 1 — color baseline
-python training/train.py --data-dir data/raw --epochs 30 \
-    --out models/best_color.pth --out-dir runs/color
+pip install -r training/requirements.txt
+python training/build_class_list.py     # -> models/class_names_v2.txt, models/pokeapi_slugs.json
+python training/scrape_dataset.py all   # seed + cards + dedup + CLIP/NSFW filter -> data/raw/<Name>/
 
-# Phase 2 — randomized sketch fine-tune (warm-start from phase 1)
-python training/train.py --data-dir data/raw --epochs 15 --sketch \
-    --init-weights models/best_color.pth --lr 5e-5 \
-    --out models/best_sketch.pth --out-dir runs/sketch
+# Phase 1 — color baseline; Phase 2 — randomized sketch fine-tune
+python training/train.py --data-dir data/raw --epochs 30 --out models/best_color.pth --out-dir runs/color
+python training/train.py --data-dir data/raw --epochs 15 --sketch --init-weights models/best_color.pth \
+    --lr 5e-5 --out models/best_sketch.pth --out-dir runs/sketch
+
+# Export both checkpoints to ONNX; fails unless ONNX + preprocessing match PyTorch
+python training/export_onnx.py
 ```
 
-Features: stratified train/val/test split, weighted sampling for class imbalance, mixed precision, early stopping, TensorBoard logs, and a confusion-matrix + per-class accuracy report written to the run dir. GPU is used automatically when available (CUDA build of torch).
-
----
+`.pth` / `.onnx` weights and the dataset are not committed (size / licensing).
 
 ## Results
 
@@ -123,10 +99,8 @@ Features: stratified train/val/test split, weighted sampling for class imbalance
 | ConvNeXt-Tiny, color | 386 (Gen 1–3) | **98.7%** |
 | ConvNeXt-Tiny, sketch fine-tune | 386 (Gen 1–3) | **95.8%** (sketch-style eval) |
 
-The sketch fine-tune trades a few points of clean-image accuracy for robustness on hand-drawn inputs — the intended behavior for a "guess the sketch" demo.
-
----
+The sketch fine-tune trades a few points of clean-image accuracy for robustness on hand-drawn inputs, which is what a "guess the sketch" demo wants. Real-world accuracy from user feedback is on the live `/Stats` page.
 
 ## License
 
-[MIT](LICENSE) — free to use, modify, and learn from.
+[MIT](LICENSE)

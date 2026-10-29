@@ -15,7 +15,8 @@ var useSqlServer = config["Database:Provider"] == "SqlServer";
 builder.Services.AddDbContext<PokeGuessDb>(o =>
 {
     var cs = config.GetConnectionString("Default");
-    if (useSqlServer) o.UseSqlServer(cs); else o.UseSqlite(cs);
+    // Retries cover the free serverless tier resuming from auto-pause (error 40613).
+    if (useSqlServer) o.UseSqlServer(cs, sql => sql.EnableRetryOnFailure()); else o.UseSqlite(cs);
 });
 
 builder.Services.AddSingleton(_ => Pokedex.Load(
