@@ -51,7 +51,7 @@ done
 
 echo "==> Inference app settings"
 az webapp config set -g "$RG" -n "$INFERENCE" -o none \
-  --startup-file "gunicorn --bind=0.0.0.0 --timeout 120 --workers 1 'app:create_app()'" \
+  --startup-file "gunicorn --bind=0.0.0.0 --timeout 120 --workers 1 wsgi:app" \
   --generic-configurations '{"healthCheckPath": "/health"}'
 az webapp config appsettings set -g "$RG" -n "$INFERENCE" -o none --settings \
   INFERENCE_API_KEY="$API_KEY" LEGACY_TRUST=0.55 SCM_DO_BUILD_DURING_DEPLOYMENT=true

@@ -33,5 +33,9 @@ grep -q "^az webapp create .*--https-only true" "$log" || fail "web apps not cre
 grep -q "^az role assignment create .*--assignee-object-id 22222222-2222-2222-2222-222222222222 --assignee-principal-type ServicePrincipal" "$log" \
   || fail "role assignment not by service principal object id"
 [ "$(grep -c '^gh variable set' "$log")" -eq 5 ] || fail "expected 5 gh variable set calls"
+# App Service evals the startup command inside single quotes: quotes/parens break it (exit 127).
+startup=$(grep -o -- "--startup-file .*" "$log" | sed 's/^--startup-file //; s/ --generic-configurations.*//')
+[ -n "$startup" ] || fail "no startup command set"
+case "$startup" in *[\'\"\(\)]*) fail "startup command has quotes/parens: $startup" ;; esac
 echo "$out" | grep -q "Done." || fail "no completion message"
 echo "setup.sh dry run ok ($(wc -l < "$log") calls)"
