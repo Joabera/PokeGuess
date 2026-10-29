@@ -19,7 +19,7 @@ set -euo pipefail
 export MSYS_NO_PATHCONV=1
 
 RG=${RG:-pokeguess-rg}
-LOCATION=${LOCATION:-eastus}
+LOCATION=${LOCATION:-centralus}  # eastus/eastus2 had 0 B1 quota on a new trial subscription
 # Re-running after a partial failure? Pass the same SUFFIX so nothing is duplicated.
 SUFFIX=${SUFFIX:-$(openssl rand -hex 3 | cut -c1-5)}
 REPO=${REPO:-Joabera/PokeGuess}
@@ -32,6 +32,11 @@ SQL_DB=pokeguess
 SQL_ADMIN=pokeguessadmin
 SQL_PASSWORD="$(openssl rand -base64 24 | tr -d '/+=')Aa1!"
 API_KEY=$(openssl rand -hex 32)
+
+echo "==> Registering resource providers (needed once on a new subscription)"
+for ns in Microsoft.Web Microsoft.Sql; do
+  az provider register --namespace "$ns" --wait -o none
+done
 
 echo "==> Resource group $RG ($LOCATION), suffix $SUFFIX"
 az group create -n "$RG" -l "$LOCATION" -o none
