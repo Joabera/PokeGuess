@@ -17,7 +17,8 @@ set -euo pipefail
 
 RG=${RG:-pokeguess-rg}
 LOCATION=${LOCATION:-eastus}
-SUFFIX=${SUFFIX:-$(LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 5)}
+# Re-running after a partial failure? Pass the same SUFFIX so nothing is duplicated.
+SUFFIX=${SUFFIX:-$(openssl rand -hex 3 | cut -c1-5)}
 REPO=${REPO:-Joabera/PokeGuess}
 
 PLAN=pokeguess-plan
@@ -34,10 +35,10 @@ az group create -n "$RG" -l "$LOCATION" -o none
 
 echo "==> App Service plan (B1 Linux) + two web apps"
 az appservice plan create -g "$RG" -n "$PLAN" --is-linux --sku B1 -o none
-az webapp create -g "$RG" -p "$PLAN" -n "$WEB" --runtime "DOTNETCORE:10.0" -o none
-az webapp create -g "$RG" -p "$PLAN" -n "$INFERENCE" --runtime "PYTHON:3.12" -o none
+az webapp create -g "$RG" -p "$PLAN" -n "$WEB" --runtime "DOTNETCORE:10.0" --https-only true -o none
+az webapp create -g "$RG" -p "$PLAN" -n "$INFERENCE" --runtime "PYTHON:3.12" --https-only true -o none
 for app in "$WEB" "$INFERENCE"; do
-  az webapp config set -g "$RG" -n "$app" --always-on true --https-only true -o none
+  az webapp config set -g "$RG" -n "$app" --always-on true -o none
 done
 
 echo "==> Inference app settings"
@@ -57,7 +58,7 @@ az sql db create -g "$RG" -s "$SQL_SERVER" -n "$SQL_DB" -o none \
   --use-free-limit --free-limit-exhaustion-behavior AutoPause
 
 echo "==> Web app settings"
-CONN="Server=tcp:$SQL_SERVER.database.windows.net,1433;Database=$SQL_DB;User ID=$SQL_ADMIN;Password=$SQL_PASSWORD;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;"
+CONN="Server=tcp:$SQL_SERVER.database.windows.net,1433;Database=$SQL_DB;User ID=$SQL_ADMIN;Password=$SQL_PASSWORD;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 az webapp config connection-string set -g "$RG" -n "$WEB" -t SQLAzure -o none --settings Default="$CONN"
 az webapp config appsettings set -g "$RG" -n "$WEB" -o none --settings \
   Database__Provider=SqlServer \
@@ -68,14 +69,16 @@ echo "==> GitHub Actions OIDC identity"
 SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 TENANT_ID=$(az account show --query tenantId -o tsv)
 CLIENT_ID=$(az ad app create --display-name "pokeguess-github-$SUFFIX" --query appId -o tsv)
-az ad sp create --id "$CLIENT_ID" -o none
+SP_OBJECT_ID=$(az ad sp create --id "$CLIENT_ID" --query id -o tsv)
 az ad app federated-credential create --id "$CLIENT_ID" -o none --parameters "{
   \"name\": \"github-main\",
   \"issuer\": \"https://token.actions.githubusercontent.com\",
   \"subject\": \"repo:$REPO:ref:refs/heads/main\",
   \"audiences\": [\"api://AzureADTokenExchange\"]
 }"
-az role assignment create --assignee "$CLIENT_ID" --role Contributor \
+# Assign by object id: a just-created principal may not be resolvable by appId yet.
+az role assignment create --assignee-object-id "$SP_OBJECT_ID" --assignee-principal-type ServicePrincipal \
+  --role Contributor \
   --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG" -o none
 
 echo "==> GitHub repo variables ($REPO)"

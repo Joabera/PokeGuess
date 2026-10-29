@@ -16,6 +16,7 @@ $(function () {
 
   let guessId = null;
   let previewUrl = null;
+  let currentRequest = 0; // only the latest upload may update the page
 
   if (window.matchMedia("(pointer: coarse)").matches) $("#cameraBtn").removeClass("d-none");
 
@@ -47,6 +48,8 @@ $(function () {
   // --- Upload ------------------------------------------------------------
   async function handleFile(file) {
     if (!file.type.startsWith("image/")) return showStatus("Couldn't read that image.", true);
+    const request = ++currentRequest;
+    const isCurrent = () => request === currentRequest;
     reset();
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     previewUrl = URL.createObjectURL(file);
@@ -60,13 +63,14 @@ $(function () {
     } catch {
       upload = file; // let the server decide if it can't be decoded here (e.g. HEIC)
     }
+    if (!isCurrent()) return;
 
     const form = new FormData();
     form.append("file", upload, upload.name || "image");
     $.ajax({ url: "/api/guess", method: "POST", data: form, processData: false, contentType: false })
-      .done(showResult)
-      .fail(xhr => showStatus(errorText(xhr), true))
-      .always(() => $drop.removeClass("busy"));
+      .done(data => { if (isCurrent()) showResult(data); })
+      .fail(xhr => { if (isCurrent()) showStatus(errorText(xhr), true); })
+      .always(() => { if (isCurrent()) $drop.removeClass("busy"); });
   }
 
   // Phone photos are large: shrink anything over MAX_SIDE. PNG stays PNG (keeps sketches crisp).

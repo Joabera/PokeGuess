@@ -13,6 +13,7 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - run: dotnet test
+      - run: bash infra/test_setup.sh
 
   inference:
     runs-on: ubuntu-latest

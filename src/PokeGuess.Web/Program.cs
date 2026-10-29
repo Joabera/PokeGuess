@@ -15,8 +15,12 @@ var useSqlServer = config["Database:Provider"] == "SqlServer";
 builder.Services.AddDbContext<PokeGuessDb>(o =>
 {
     var cs = config.GetConnectionString("Default");
-    // Retries cover the free serverless tier resuming from auto-pause (error 40613).
-    if (useSqlServer) o.UseSqlServer(cs, sql => sql.EnableRetryOnFailure()); else o.UseSqlite(cs);
+    // Retries cover the free serverless tier resuming from auto-pause (error 40613),
+    // kept short so a guess still returns (with guessId null) if the DB stays down.
+    if (useSqlServer)
+        o.UseSqlServer(cs, sql => sql.EnableRetryOnFailure(3, TimeSpan.FromSeconds(10), null));
+    else
+        o.UseSqlite(cs);
 });
 
 builder.Services.AddSingleton(_ => Pokedex.Load(
@@ -62,10 +66,18 @@ var app = builder.Build();
 app.UseForwardedHeaders();
 
 // Migrations are generated for SQL Server only; SQLite just creates the schema.
+// Never fatal: a paused/unreachable DB must not stop guessing (feedback/stats degrade instead).
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PokeGuessDb>();
-    if (useSqlServer) db.Database.Migrate(); else db.Database.EnsureCreated();
+    try
+    {
+        if (useSqlServer) db.Database.Migrate(); else db.Database.EnsureCreated();
+    }
+    catch (Exception e)
+    {
+        app.Logger.LogError(e, "Database schema setup failed; continuing without it");
+    }
 }
 
 if (!app.Environment.IsDevelopment())

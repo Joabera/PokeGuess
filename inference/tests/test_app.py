@@ -86,3 +86,18 @@ def test_predict_routes_to_legacy():
     assert body["model"] == "legacy-gen1"
     assert body["predictions"][0] == {"name": "Pikachu", "confidence": 80.0}
     assert body["predictions"][2]["name"] == "Mr. Mime"
+
+
+def test_predict_rejects_extreme_aspect_ratio(client):
+    # 1x4000 resizes to 256x1,024,000: enough to exhaust a small worker.
+    buf = io.BytesIO()
+    Image.new("RGB", (1, 4000)).save(buf, "PNG")
+    res = post(client, buf.getvalue())
+    assert res.status_code == 400
+    assert res.get_json()["error"] == "Could not read image file."
+
+
+def test_predict_rejects_decompression_bomb(client, monkeypatch):
+    monkeypatch.setattr(Image, "MAX_IMAGE_PIXELS", 1000)  # 64x64 = 4096 > 2x limit -> bomb error
+    res = post(client, png_bytes())
+    assert res.status_code == 400

@@ -65,9 +65,16 @@ Tests: `dotnet test` and `cd inference && pytest`.
 
 ```bash
 az login && gh auth login
+
+# Once: publish the ONNX models the deploy downloads (run training/export_onnx.py first)
+gh release create models-v1 models/convnext_gen1-3.onnx models/resnet18_gen1.onnx \
+  --title "Model weights v1" --notes "ONNX exports of best_sketch.pth and fine_tuned_with_pencil_sketch.pth"
+
 bash infra/setup.sh        # creates the resource group, B1 plan, 2 web apps, Azure SQL free offer, OIDC identity, repo variables
 git push origin main       # the Deploy workflow tests, then ships both apps
 ```
+
+If `setup.sh` stops partway, re-run it with the suffix it printed (`SUFFIX=abcde bash infra/setup.sh`) so it reuses the same resources. `bash infra/test_setup.sh` dry-runs the script against stubbed `az`/`gh`.
 
 Cost is about $13/month for the B1 plan, which hosts both apps; the SQL database is on the free offer. Tear down with `az group delete -n pokeguess-rg --yes`.
 

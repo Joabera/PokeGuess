@@ -14,6 +14,8 @@ from model import OnnxClassifier, load_class_names
 from preprocess import HALF_NORM, IMAGENET_NORM
 from routing import route
 
+MAX_ASPECT = 10  # longest side / shortest side; real photos, art and sketches are far below this
+
 
 def create_app(new_clf=None, legacy_clf=None, gen1_names=None, api_key=None,
                legacy_trust_pct=None):
@@ -51,7 +53,10 @@ def create_app(new_clf=None, legacy_clf=None, gen1_names=None, api_key=None,
         try:
             image = Image.open(io.BytesIO(upload.read()))
             image.load()
-        except (AttributeError, UnidentifiedImageError, OSError):
+        except (AttributeError, UnidentifiedImageError, OSError, Image.DecompressionBombError):
+            return jsonify(error="Could not read image file."), 400
+        # Resize scales the short side to 256, so a sliver image would explode in memory.
+        if max(image.size) > MAX_ASPECT * min(image.size):
             return jsonify(error="Could not read image file."), 400
 
         top_k = min(max(request.args.get("top_k", 3, type=int), 1), 10)
