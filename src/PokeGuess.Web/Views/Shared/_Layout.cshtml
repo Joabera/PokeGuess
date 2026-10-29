@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PokeGuess</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand border-bottom mb-4">
+            <div class="container page">
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">Poke<span class="accent">Guess</span></a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Guess</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Stats" asp-action="Index">Stats</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container page pb-5">
+        @RenderBody()
+    </main>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
