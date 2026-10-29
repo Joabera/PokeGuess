@@ -14,6 +14,9 @@
 #
 # then re-run this script to recreate it (new SUFFIX → new hostnames).
 set -euo pipefail
+# Git Bash on Windows rewrites args like "/subscriptions/..." into Windows paths
+# before handing them to az.cmd; this turns that off.
+export MSYS_NO_PATHCONV=1
 
 RG=${RG:-pokeguess-rg}
 LOCATION=${LOCATION:-eastus}
