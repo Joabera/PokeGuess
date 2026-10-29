@@ -55,3 +55,22 @@ jobs:
         with:
           app-name: ${{ vars.AZURE_WEBAPP_WEB }}
           package: publish
+
+      # OneDeploy can swap the files without recycling the .NET process. The old
+      # process keeps the previous static-asset manifest (old hashes and lengths),
+      # so pages keep referencing stale JS. Restart, then prove the live JS is new.
+      - name: Restart web app
+        run: |
+          rg=$(az webapp list --query "[?name=='${{ vars.AZURE_WEBAPP_WEB }}'].resourceGroup" -o tsv)
+          az webapp restart -g "$rg" -n "${{ vars.AZURE_WEBAPP_WEB }}"
+
+      - name: Verify live site serves this build
+        run: |
+          url="https://${{ vars.AZURE_WEBAPP_WEB }}.azurewebsites.net/js/guess.js"
+          for i in $(seq 1 20); do
+            if curl -sf --max-time 60 "$url" -o live.js && cmp -s live.js publish/wwwroot/js/guess.js; then
+              echo "Live guess.js matches the published build."; exit 0
+            fi
+            echo "Not updated yet (attempt $i), waiting..."; sleep 15
+          done
+          echo "::error::Live guess.js does not match the published build after restart"; exit 1
