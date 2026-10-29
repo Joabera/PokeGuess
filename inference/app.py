@@ -1,7 +1,7 @@
 """Flask inference service for PokeGuess. Internal API called by the ASP.NET web app.
 
 Local:  flask --app inference/app.py run          (needs INFERENCE_API_KEY)
-Azure:  gunicorn 'app:create_app()'
+Azure:  gunicorn wsgi:app
 """
 import hmac
 import io
