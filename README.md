@@ -1,6 +1,6 @@
 # PokeGuess — Pokémon Image Classifier (Gen 1–3)
 
-**Live:** _link added after first deploy_
+**Live:** https://pokeguess-web-773dd.azurewebsites.net · [Stats](https://pokeguess-web-773dd.azurewebsites.net/Stats)
 
 Identifies **the 386 Pokémon of Generations 1–3** from a photo, illustration, or hand-drawn sketch. You drop, paste, or snap an image. PokeGuess shows its top 3 guesses, the official sprite, and the Pokémon's cry, then asks whether it got it right. That feedback feeds a live accuracy dashboard.
 
