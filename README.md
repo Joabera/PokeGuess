@@ -1,8 +1,8 @@
-# PokeGuess — Pokémon Image Classifier (Gen 1–3)
+# PokeGuess — Pokémon Image Classifier (Gen 1–9)
 
 **Live:** https://pokeguess-web-773dd.azurewebsites.net · [Live camera](https://pokeguess-web-773dd.azurewebsites.net/Live) · [Stats](https://pokeguess-web-773dd.azurewebsites.net/Stats)
 
-Identifies **the 386 Pokémon of Generations 1–3** from a photo, illustration, or hand-drawn sketch. You drop, paste, or snap an image. PokeGuess shows its top 3 guesses, the official sprite, and the Pokémon's cry, then asks whether it got it right. That feedback feeds a live accuracy dashboard.
+Identifies **all 1025 Pokémon of Generations 1–9** from a photo, illustration, or hand-drawn sketch. You drop, paste, or snap an image. PokeGuess shows its top 3 guesses, the official sprite, and the Pokémon's cry, then asks whether it got it right. That feedback feeds a live accuracy dashboard.
 
 **Live mode** points your webcam or phone camera at a card, picture, or drawing and recognizes Pokémon in real time, drawing green boxes over the video. The model runs **in your browser** (ONNX Runtime Web), so nothing is uploaded per frame; **Snap** sends just the boxed crop through the same pipeline as uploads, tagged as `live` in Stats.
 
@@ -20,13 +20,13 @@ ASP.NET Core MVC  (C#, .NET 10) ── Azure App Service
    │  HttpClient → POST /predict (multipart, X-Api-Key)     EF Core
    ▼                                                        ▼
 Flask inference (Python) ── Azure App Service              Azure SQL (SQLite locally)
-   ONNX Runtime: ConvNeXt-Tiny (Gen 1–3) + ResNet-18 (Gen 1)
+   ONNX Runtime: ConvNeXt-Tiny (Gen 1–9) + ResNet-18 (Gen 1)
 ```
 
 - **The browser only talks to the MVC app.** MVC calls Flask server-side with a shared API key, so there's no CORS and no public model API.
 - **Two-model routing:** ConvNeXt decides the generation. For Gen 1 it defers to the original ResNet-18 (trained on more Gen 1 data) when that model is ≥ 55% confident. The UI shows which model answered.
 - **Feedback loop:** every guess is stored (never the image). ✓/✗ feedback powers `/Stats`: accuracy overall, by model, by generation, and by source (upload vs live), plus the most common mix-ups.
-- **Live mode (`/Live`):** ConvNeXt runs in the browser on **WebGPU** (fp32, 113 MB; ~40 fps with the guide box, several fps searching the whole frame) or falls back to the **CPU** (int8, 28 MB; guide box only). The model downloads once per device and is kept in the browser's Cache API. Search mode scores a grid of crops per frame, keeps confident hits that hold for 2 of 3 frames, then shrinks each box while the same Pokémon stays ≥ 80%. The web app serves the model files from `/models/` with immutable caching.
+- **Live mode (`/Live`):** ConvNeXt runs in the browser on **WebGPU** (fp32, 115 MB; ~40 fps with the guide box, several fps searching the whole frame) or falls back to the **CPU** (int8, 29 MB; guide box only). The model downloads once per device and is kept in the browser's Cache API. Search mode scores a grid of crops per frame, keeps confident hits that hold for 2 of 3 frames, then shrinks each box while the same Pokémon stays ≥ 80%. The web app serves the model files from `/models/` with immutable caching.
 
 ## What's where
 
@@ -49,8 +49,8 @@ Needs the .NET 10 SDK and Python 3.12+.
 
 ```bash
 # 1. Models (ONNX, published as a GitHub release; ~190 MB). models/ feeds the Live page locally.
-gh release download models-v2 -p "*.onnx" -D models
-cp models/convnext_gen1-3.onnx models/resnet18_gen1.onnx inference/models/
+gh release download models-v3 -p "*.onnx" -D models
+cp models/convnext_gen1-9.onnx models/resnet18_gen1.onnx inference/models/
 cp models/best_sketch_classes.txt models/class_names.txt models/class_names_v2.txt inference/models/
 
 # 2. Inference service → http://127.0.0.1:5000
@@ -74,8 +74,8 @@ Local SQLite is created on first run but never altered afterwards. After a schem
 az login && gh auth login
 
 # Once: publish the ONNX models the deploy downloads (run training/export_onnx.py first)
-gh release create models-v2 models/convnext_gen1-3.onnx models/resnet18_gen1.onnx models/convnext_gen1-3_int8.onnx \
-  --title "Model weights v2" --notes "Dynamic-batch ConvNeXt + int8 for Live mode; ResNet-18 unchanged"
+gh release create models-v3 models/convnext_gen1-9.onnx models/resnet18_gen1.onnx models/convnext_gen1-9_int8.onnx \
+  --title "Model weights v3" --notes "ConvNeXt extended to Gen 1-9 (1025 classes); ResNet-18 Gen 1 specialist unchanged"
 
 bash infra/setup.sh        # creates the resource group, B1 plan, 2 web apps, Azure SQL free offer, OIDC identity, repo variables
 git push origin main       # the Deploy workflow tests, then ships both apps
@@ -87,7 +87,7 @@ Cost is about $13/month for the B1 plan, which hosts both apps; the SQL database
 
 ## Training & export
 
-The dataset comes from official sources (PokéAPI sprites + cropped TCG card art, about 13k images):
+The dataset comes from official sources (PokéAPI sprites + cropped TCG card art, about 26k images):
 
 ```bash
 pip install -r training/requirements.txt
@@ -98,6 +98,12 @@ python training/scrape_dataset.py all   # seed + cards + dedup + CLIP/NSFW filte
 python training/train.py --data-dir data/raw --epochs 30 --out models/best_color.pth --out-dir runs/color
 python training/train.py --data-dir data/raw --epochs 15 --sketch --init-weights models/best_color.pth \
     --lr 5e-5 --out models/best_sketch.pth --out-dir runs/sketch
+
+# Gen 4–9 extension (v3): new classes were scraped with --min-id 387 so the Gen 1–3 data stays as is,
+# then both phases warm-start from the previous model (only the classifier head starts fresh)
+python training/train.py --data-dir data/raw --epochs 14 --lr 1.5e-4 --init-weights models/best_sketch.pth     --out models/best_color_v3.pth --out-dir runs/color_gen1-9
+python training/train.py --data-dir data/raw --epochs 10 --sketch --lr 5e-5 --init-weights models/best_color_v3.pth     --out models/best_sketch_v3.pth --out-dir runs/sketch_gen1-9
+python training/gate.py --checkpoint models/best_sketch_v3.pth --data-dir data/raw   # must PASS before export
 
 # Export both checkpoints to ONNX; fails unless ONNX + preprocessing match PyTorch
 python training/export_onnx.py
@@ -110,8 +116,11 @@ python training/export_onnx.py
 | Model | Classes | Test accuracy |
 |---|---|---|
 | Legacy ResNet-18 | 150 (Gen 1) | — (original project) |
-| ConvNeXt-Tiny, color | 386 (Gen 1–3) | **98.7%** |
-| ConvNeXt-Tiny, sketch fine-tune | 386 (Gen 1–3) | **95.8%** (sketch-style eval) |
+| ConvNeXt-Tiny, color (v2) | 386 (Gen 1–3) | 98.7% |
+| ConvNeXt-Tiny, sketch fine-tune (v2) | 386 (Gen 1–3) | 95.8% (sketch-style eval) |
+| **ConvNeXt-Tiny, sketch fine-tune (v3, served)** | **1025 (Gen 1–9)** | **98.3%** clean, **95.7%** sketch; Gen 1–3 subset 99.2% / 97.1% |
+
+v3 was trained on 26,223 images. It had to clear a gate before export: at least 95% clean and 90% sketch overall, and no worse than v2 on Gen 1–3. Gen 6–9 have the fewest images (about 18 per Pokémon), and 22 Pokémon have fewer than 10.
 
 The sketch fine-tune trades a few points of clean-image accuracy for robustness on hand-drawn inputs, which is what a "guess the sketch" demo wants. Real-world accuracy from user feedback is on the live `/Stats` page.
 
