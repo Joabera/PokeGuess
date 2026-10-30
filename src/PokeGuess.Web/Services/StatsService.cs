@@ -96,7 +96,7 @@ public class StatsService(PokeGuessDb db, Pokedex dex)
             Accuracy = Accuracy(correct, withFeedback),
             ByModel = byModel.OrderBy(m => m.Model, StringComparer.Ordinal)
                 .Select(m => Group(m.Model, m.WithFeedback, m.Correct)).ToList(),
-            ByGeneration = [.. new[] { 1, 2, 3 }.Select(gen =>
+            ByGeneration = [.. Enumerable.Range(1, 9).Select(gen =>
             {
                 var rows = byName.Where(n => dex.GenerationOf(n.Name) == gen).ToList();
                 return Group($"Gen {gen}", rows.Sum(n => n.WithFeedback), rows.Sum(n => n.Correct));

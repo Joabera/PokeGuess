@@ -42,7 +42,7 @@ public sealed class StatsTests : IDisposable
         var s = await Stats();
         Assert.Equal(0, s.TotalGuesses);
         Assert.Null(s.Accuracy);
-        Assert.Equal(["Gen 1", "Gen 2", "Gen 3"], s.ByGeneration.Select(g => g.Key));
+        Assert.Equal(Enumerable.Range(1, 9).Select(g => $"Gen {g}"), s.ByGeneration.Select(g => g.Key));
         Assert.All(s.ByGeneration, g => Assert.Null(g.Accuracy));
         Assert.Empty(s.ByModel);
         Assert.Equal(["upload", "live"], s.BySource.Select(g => g.Key));
@@ -89,6 +89,21 @@ public sealed class StatsTests : IDisposable
         Assert.Equal(["upload", "live"], s.BySource.Select(g => g.Key));
         Assert.Equal((5, 4, 80.0), (s.BySource[0].WithFeedback, s.BySource[0].Correct, s.BySource[0].Accuracy));
         Assert.Equal((2, 1, 50.0), (s.BySource[1].WithFeedback, s.BySource[1].Correct, s.BySource[1].Accuracy));
+    }
+
+    [Fact]
+    public async Task Stats_page_labels_models()
+    {
+        using (var db = _factory.CreateDb())
+        {
+            foreach (var model in new[] { "gen1-9", "gen1-3", "legacy-gen1" })
+                db.Guesses.Add(new Guess { CreatedAt = DateTime.UtcNow, PredictedName = "Pikachu", Confidence = 90m, Model = model, IsCorrect = true, ActualName = "Pikachu" });
+            db.SaveChanges();
+        }
+        var html = WebUtility.HtmlDecode(await _client.GetStringAsync("/Stats"));
+        Assert.Contains("Gen 1–9 model", html);
+        Assert.Contains("Gen 1–3 model (previous)", html);
+        Assert.Contains("Gen 1 specialist", html);
     }
 
     [Fact]

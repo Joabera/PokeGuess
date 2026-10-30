@@ -32,6 +32,19 @@ public sealed class LivePageTests : IDisposable
         Assert.Contains("window.LIVE_CLASSES = [" + string.Join(",", expected), html);
     }
 
+    // Browsers holding the v2 (Gen 1-3) model must re-download: new URLs + new cache version.
+    [Fact]
+    public void Live_script_uses_v3_gen1_9_models()
+    {
+        var dir = AppContext.BaseDirectory;
+        while (!Directory.Exists(Path.Combine(dir, "src", "PokeGuess.Web"))) dir = Path.GetDirectoryName(dir)!;
+        var js = File.ReadAllText(Path.Combine(dir, "src", "PokeGuess.Web", "wwwroot", "js", "live", "live.js"));
+        Assert.Contains("convnext_gen1-9.onnx", js);
+        Assert.Contains("convnext_gen1-9_int8.onnx", js);
+        Assert.Contains("MODEL_VERSION = \"v3\"", js);
+        Assert.DoesNotContain("convnext_gen1-3", js);
+    }
+
     [Fact]
     public async Task Nav_has_live_link() =>
         Assert.Contains("href=\"/Live\"", await _client.GetStringAsync("/"));

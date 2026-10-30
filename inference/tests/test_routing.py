@@ -12,7 +12,7 @@ def never_called():
 def test_non_gen1_never_calls_legacy():
     new = [("Treecko", 90.0), ("Grovyle", 5.0)]
     preds, model = route(new, never_called, GEN1, 55.0)
-    assert model == "gen1-3"
+    assert model == "gen1-9"
     assert preds == new
 
 
@@ -26,7 +26,7 @@ def test_gen1_legacy_confident_wins():
 def test_gen1_legacy_below_trust_uses_new():
     new = [("Pikachu", 70.0), ("Raichu", 20.0)]
     preds, model = route(new, lambda: [("Pikachu", 54.99)], GEN1, 55.0)
-    assert model == "gen1-3"
+    assert model == "gen1-9"
     assert preds == new
 
 

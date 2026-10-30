@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Stats";
     string Pct(double? a) => a is null ? "—" : a.Value.ToString("0.0", CultureInfo.InvariantCulture) + "%";
+    string ModelLabel(string key) => key switch
+    {
+        "gen1-9" => "Gen 1–9 model",
+        "gen1-3" => "Gen 1–3 model (previous)",
+        "legacy-gen1" => "Gen 1 specialist",
+        _ => key,
+    };
 }
 
 <h1 class="h3 mb-1">Model stats</h1>
@@ -23,7 +30,7 @@
                 <tbody>
                     @foreach (var m in Model.ByModel)
                     {
-                        <tr><td>@(m.Key == "legacy-gen1" ? "Gen 1 specialist" : "Gen 1–3 model")</td><td class="text-end">@m.WithFeedback</td><td class="text-end">@Pct(m.Accuracy)</td></tr>
+                        <tr><td>@ModelLabel(m.Key)</td><td class="text-end">@m.WithFeedback</td><td class="text-end">@Pct(m.Accuracy)</td></tr>
                     }
                     @if (Model.ByModel.Count == 0)
                     {

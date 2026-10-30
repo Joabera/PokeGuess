@@ -29,17 +29,17 @@ jobs:
       - name: Publish web app
         run: dotnet publish src/PokeGuess.Web -c Release -o publish
 
-      - name: Assemble model files (ONNX from the models-v2 release)
+      - name: Assemble model files (ONNX from the models-v3 release)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download models-v2 --repo "${{ github.repository }}" -p "*.onnx" -D release
+          gh release download models-v3 --repo "${{ github.repository }}" -p "*.onnx" -D release
           # Inference service: both models for two-model routing.
           mkdir -p inference/models publish/models
-          cp release/convnext_gen1-3.onnx release/resnet18_gen1.onnx inference/models/
+          cp release/convnext_gen1-9.onnx release/resnet18_gen1.onnx inference/models/
           cp models/best_sketch_classes.txt models/class_names.txt models/class_names_v2.txt inference/models/
           # Web app /models/: the Live page's in-browser models (GPU fp32 + CPU int8).
-          cp release/convnext_gen1-3.onnx release/convnext_gen1-3_int8.onnx publish/models/
+          cp release/convnext_gen1-9.onnx release/convnext_gen1-9_int8.onnx publish/models/
           rm -rf inference/tests inference/pytest.ini inference/requirements-dev.txt
 
       - uses: azure/login@v2
@@ -78,10 +78,10 @@ jobs:
             if [ "$i" = 20 ]; then echo "::error::Live guess.js does not match the published build after restart"; exit 1; fi
             echo "Not updated yet (attempt $i), waiting..."; sleep 15
           done
-          model="https://${{ vars.AZURE_WEBAPP_WEB }}.azurewebsites.net/models/convnext_gen1-3.onnx"
-          expected=$(stat -c%s publish/models/convnext_gen1-3.onnx)
+          model="https://${{ vars.AZURE_WEBAPP_WEB }}.azurewebsites.net/models/convnext_gen1-9.onnx"
+          expected=$(stat -c%s publish/models/convnext_gen1-9.onnx)
           actual=$(curl -sfI --max-time 60 "$model" | tr -d '\r' | awk 'tolower($1)=="content-length:" {print $2}')
           if [ "$actual" != "$expected" ]; then
-            echo "::error::/models/convnext_gen1-3.onnx: expected $expected bytes, got '${actual:-no response}'"; exit 1
+            echo "::error::/models/convnext_gen1-9.onnx: expected $expected bytes, got '${actual:-no response}'"; exit 1
           fi
           echo "Live model served ($actual bytes)."

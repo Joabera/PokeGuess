@@ -68,7 +68,7 @@ def test_predict_ok(client):
     res = post(client, png_bytes())
     assert res.status_code == 200
     body = res.get_json()
-    assert body["model"] == "gen1-3"
+    assert body["model"] == "gen1-9"
     assert body["predictions"] == [
         {"name": "Treecko", "confidence": 91.23},
         {"name": "Grovyle", "confidence": 5.11},

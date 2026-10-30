@@ -39,9 +39,10 @@ import os
 import sys
 import time
 import warnings
-from collections import defaultdict
 
 from tqdm import tqdm
+
+from classlist import safe_name
 import urllib.request
 import urllib.parse
 
@@ -87,7 +88,9 @@ def load_classes(min_id=1, max_id=None, only=None):
 
 
 def class_dir(name):
-    d = os.path.join(DATA_ROOT, name)
+    # The class file already holds safe names; this guards against a stray unsafe one
+    # silently becoming a different folder (e.g. Windows dropping a trailing dot).
+    d = os.path.join(DATA_ROOT, safe_name(name))
     os.makedirs(d, exist_ok=True)
     return d
 
@@ -211,7 +214,34 @@ def _download_card_cropped(card_id, set_code, path, crop_frac):
     return False
 
 
-def _build_card_index(wanted_dex, refresh=False, sleep=0.4):
+def _add_cards(index, cards):
+    """Bucket Pokemon cards by dex number. Every dex is kept (never filtered to
+    the current run's range), so the cache serves any later --min-id/--max-id."""
+    for c in cards:
+        dex = c.get("nationalPokedexNumber")
+        if dex and c.get("supertype") == "Pokémon" and c.get("id") and c.get("setCode"):
+            index.setdefault(dex, []).append((c["id"], c["setCode"]))
+
+
+def _write_card_cache(path, index):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"all_dex": True, "cards": {str(k): v for k, v in index.items()}}, f)
+
+
+def _read_card_cache(path):
+    """The cached full catalogue, or None if missing or an old range-filtered
+    cache (flat {dex: cards}), which would silently starve other dex ranges."""
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        raw = json.load(f)
+    if raw.get("all_dex") is not True:
+        tqdm.write(f"    ! {path} is an old range-filtered cache; rebuilding")
+        return None
+    return {int(k): v for k, v in raw["cards"].items()}
+
+
+def _build_card_index(refresh=False, sleep=0.4):
     """Paginate the entire pokemoncard.io catalogue ONCE and bucket every
     Pokemon card by National Dex number. Cached to disk so it only runs once.
 
@@ -219,11 +249,11 @@ def _build_card_index(wanted_dex, refresh=False, sleep=0.4):
     to get *all* cards per Pokemon. Polite pacing + 429 backoff keeps us under
     the rate limit. Returns {dex: [(id, setCode), ...]}.
     """
-    if os.path.exists(CARD_INDEX_CACHE) and not refresh:
-        raw = json.load(open(CARD_INDEX_CACHE, encoding="utf-8"))
-        return {int(k): v for k, v in raw.items()}
+    cached = None if refresh else _read_card_cache(CARD_INDEX_CACHE)
+    if cached is not None:
+        return cached
 
-    index = defaultdict(list)
+    index = {}
     page, last_page = 1, None
     completed = False
     bar = tqdm(desc="cards:index", unit="pg")
@@ -250,11 +280,7 @@ def _build_card_index(wanted_dex, refresh=False, sleep=0.4):
         last_page = last_page or j.get("last_page", 1)
         if bar.total is None:
             bar.total = last_page
-        for c in j.get("data", []):
-            dex = c.get("nationalPokedexNumber")
-            if (dex in wanted_dex and c.get("supertype") == "Pokémon"
-                    and c.get("id") and c.get("setCode")):
-                index[dex].append((c["id"], c["setCode"]))
+        _add_cards(index, j.get("data", []))
         bar.update(1)
         bar.set_postfix_str(f"{sum(len(v) for v in index.values())} cards")
         if page >= last_page:
@@ -266,20 +292,18 @@ def _build_card_index(wanted_dex, refresh=False, sleep=0.4):
 
     # Only cache a COMPLETE scan, so a partial run never poisons later runs.
     if completed:
-        json.dump({str(k): v for k, v in index.items()},
-                  open(CARD_INDEX_CACHE, "w", encoding="utf-8"))
+        _write_card_cache(CARD_INDEX_CACHE, index)
     else:
         tqdm.write(f"    ! card scan incomplete (reached page {page}/{last_page}); "
                    "not caching. Re-run to resume.")
-    return dict(index)
+    return index
 
 
 def stage_cards(classes, crop_frac=0.52, cap=0, refresh=False):
     """Collect ALL official TCG card art per Pokemon, cropped to the top
     `crop_frac` (the illustration). Official art => clean, correctly labeled,
     zero NSFW risk. `cap=0` means unlimited."""
-    wanted = {dex: name for dex, name, _ in classes}
-    index = _build_card_index(set(wanted), refresh=refresh)
+    index = _build_card_index(refresh=refresh)
 
     saved_total = 0
     bar = tqdm(classes, desc="cards ", unit="cls")
