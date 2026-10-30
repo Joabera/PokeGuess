@@ -13,5 +13,6 @@ public class PokeGuessDb(DbContextOptions<PokeGuessDb> options) : DbContext(opti
         guess.Property(g => g.ActualName).HasMaxLength(40);
         guess.Property(g => g.Model).HasMaxLength(20);
         guess.Property(g => g.Confidence).HasPrecision(5, 2);
+        guess.Property(g => g.Source).HasMaxLength(10).HasDefaultValue("upload");
     }
 }
