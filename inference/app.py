@@ -23,7 +23,7 @@ def create_app(new_clf=None, legacy_clf=None, gen1_names=None, api_key=None,
     path = lambda name: os.path.join(model_dir, name)  # noqa: E731
 
     if new_clf is None:
-        new_clf = OnnxClassifier(path("convnext_gen1-3.onnx"),
+        new_clf = OnnxClassifier(path("convnext_gen1-9.onnx"),
                                  load_class_names(path("best_sketch_classes.txt")), IMAGENET_NORM)
     if legacy_clf is None:
         legacy_clf = OnnxClassifier(path("resnet18_gen1.onnx"),
