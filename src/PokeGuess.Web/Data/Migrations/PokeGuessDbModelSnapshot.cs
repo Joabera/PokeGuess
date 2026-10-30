@@ -54,6 +54,13 @@ namespace PokeGuess.Web.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasDefaultValue("upload");
+
                     b.HasKey("Id");
 
                     b.ToTable("Guesses");

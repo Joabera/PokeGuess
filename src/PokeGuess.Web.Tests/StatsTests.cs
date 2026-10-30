@@ -45,6 +45,8 @@ public sealed class StatsTests : IDisposable
         Assert.Equal(["Gen 1", "Gen 2", "Gen 3"], s.ByGeneration.Select(g => g.Key));
         Assert.All(s.ByGeneration, g => Assert.Null(g.Accuracy));
         Assert.Empty(s.ByModel);
+        Assert.Equal(["upload", "live"], s.BySource.Select(g => g.Key));
+        Assert.All(s.BySource, g => Assert.Null(g.Accuracy));
         Assert.Equal(HttpStatusCode.OK, (await _client.GetAsync("/api/stats")).StatusCode);
     }
 
@@ -73,6 +75,23 @@ public sealed class StatsTests : IDisposable
     }
 
     [Fact]
+    public async Task BySource_splits_upload_and_live()
+    {
+        Seed(); // all "upload": 5 with feedback, 4 correct
+        using (var db = _factory.CreateDb())
+        {
+            db.Guesses.AddRange(
+                new Guess { CreatedAt = DateTime.UtcNow, PredictedName = "Pikachu", Confidence = 90m, Model = "gen1-3", Source = "live", IsCorrect = true, ActualName = "Pikachu" },
+                new Guess { CreatedAt = DateTime.UtcNow, PredictedName = "Pikachu", Confidence = 90m, Model = "gen1-3", Source = "live", IsCorrect = false, ActualName = "Raichu" });
+            db.SaveChanges();
+        }
+        var s = await Stats();
+        Assert.Equal(["upload", "live"], s.BySource.Select(g => g.Key));
+        Assert.Equal((5, 4, 80.0), (s.BySource[0].WithFeedback, s.BySource[0].Correct, s.BySource[0].Accuracy));
+        Assert.Equal((2, 1, 50.0), (s.BySource[1].WithFeedback, s.BySource[1].Correct, s.BySource[1].Accuracy));
+    }
+
+    [Fact]
     public async Task Api_stats_returns_json_by_default()
     {
         Seed();
@@ -89,7 +108,9 @@ public sealed class StatsTests : IDisposable
         req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
         var res = await _client.SendAsync(req);
         Assert.Equal("application/xml", res.Content.Headers.ContentType!.MediaType);
-        Assert.Contains("<TotalGuesses>6</TotalGuesses>", await res.Content.ReadAsStringAsync());
+        var xml = await res.Content.ReadAsStringAsync();
+        Assert.Contains("<TotalGuesses>6</TotalGuesses>", xml);
+        Assert.Contains("<BySource>", xml);
     }
 
     [Fact]

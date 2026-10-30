@@ -9,6 +9,7 @@ import sys
 
 import numpy as np
 import onnxruntime as ort
+from onnxruntime.quantization import QuantType, quantize_dynamic
 import torch
 import torch.nn as nn
 from PIL import Image
@@ -23,6 +24,7 @@ EXPORTS = [
     ("resnet18", "models/fine_tuned_with_pencil_sketch.pth", "models/class_names.txt",
      HALF_NORM, "models/resnet18_gen1.onnx"),
 ]
+INT8_OUT = "models/convnext_gen1-3_int8.onnx"  # CPU fallback for Live mode in the browser
 
 
 def build_backbone(backbone, num_classes):
@@ -67,6 +69,32 @@ def check_parity(name, model, onnx_path, norm):
     print(f"PARITY OK {name}")
 
 
+def softmax(logits):
+    e = np.exp(logits - logits.max(1, keepdims=True))
+    return e / e.sum(1, keepdims=True)
+
+
+def check_batch_and_int8(name, fp32_path, int8_path, norm):
+    """Live mode scores several crops per call (batch) and falls back to int8 on CPU."""
+    tensors = [to_tensor(img, *norm) for img in sample_images()]
+    fp32 = ort.InferenceSession(fp32_path, providers=["CPUExecutionProvider"])
+    singles = np.concatenate([fp32.run(None, {"input": t})[0] for t in tensors])
+    try:
+        batched = fp32.run(None, {"input": np.concatenate(tensors)})[0]
+    except Exception as e:  # fixed-batch export rejects n > 1
+        raise SystemExit(f"PARITY FAIL {name}: batch ({e.__class__.__name__})")
+    if not np.allclose(batched, singles, atol=1e-3):
+        raise SystemExit(f"PARITY FAIL {name}: batch")
+    int8 = ort.InferenceSession(int8_path, providers=["CPUExecutionProvider"])
+    quant = int8.run(None, {"input": np.concatenate(tensors)})[0]
+    # Compare probabilities, not argmax: the parity images aren't Pokémon, so the model's
+    # top classes are near-ties (~1.5%) that any quantization noise can reorder.
+    drift = np.abs(softmax(quant) - softmax(singles)).max()
+    if drift > 0.02:
+        raise SystemExit(f"PARITY FAIL {name}: int8 (max probability drift {drift:.3f})")
+    print(f"PARITY OK {name} (batch, int8)")
+
+
 def main():
     for backbone, pth, classes, norm, out in EXPORTS:
         with open(classes, encoding="utf-8") as f:
@@ -74,10 +102,16 @@ def main():
         model = build_backbone(backbone, num_classes)
         model.load_state_dict(torch.load(pth, map_location="cpu"))
         model.eval()
+        # ConvNeXt gets a dynamic batch axis so the browser can score many crops per call.
+        dynamic = {"input": {0: "n"}, "logits": {0: "n"}} if backbone == "convnext_tiny" else None
         torch.onnx.export(model, torch.zeros(1, 3, 224, 224), out,
                           input_names=["input"], output_names=["logits"],
-                          opset_version=17, dynamo=False)
-        check_parity(out.split("/")[-1].removesuffix(".onnx"), model, out, norm)
+                          dynamic_axes=dynamic, opset_version=17, dynamo=False)
+        name = out.split("/")[-1].removesuffix(".onnx")
+        check_parity(name, model, out, norm)
+        if backbone == "convnext_tiny":
+            quantize_dynamic(out, INT8_OUT, weight_type=QuantType.QUInt8)
+            check_batch_and_int8(name, out, INT8_OUT, norm)
 
 
 if __name__ == "__main__":

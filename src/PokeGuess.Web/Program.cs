@@ -1,5 +1,7 @@
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.EntityFrameworkCore;
 using PokeGuess.Web.Data;
 using PokeGuess.Web.Services;
@@ -89,6 +91,25 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseRateLimiter();
+
+// Live page models (~113 MB / 28 MB): plain static files outside wwwroot so the build
+// doesn't fingerprint or compress them. Only .onnx is served. live.js requests them with
+// ?v=<model version>, so a new release is a new URL and they can be cached forever.
+var modelsDir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, config["LiveModels:Path"] ?? "models"));
+if (Directory.Exists(modelsDir))
+{
+    var onnxOnly = new FileExtensionContentTypeProvider(new Dictionary<string, string>
+    {
+        [".onnx"] = "application/octet-stream",
+    });
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(modelsDir),
+        RequestPath = "/models",
+        ContentTypeProvider = onnxOnly,
+        OnPrepareResponse = ctx => ctx.Context.Response.Headers.CacheControl = "public, max-age=31536000, immutable",
+    });
+}
 
 app.MapStaticAssets();
 

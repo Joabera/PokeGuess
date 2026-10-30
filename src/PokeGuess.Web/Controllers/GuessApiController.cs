@@ -19,8 +19,12 @@ public class GuessApiController(PokeGuessDb db, InferenceClient inference, ILogg
     [HttpPost]
     [RequestSizeLimit(6 * 1024 * 1024)]
     [EnableRateLimiting("guess")]
-    public async Task<IActionResult> Guess(IFormFile? file, CancellationToken ct)
+    public async Task<IActionResult> Guess(IFormFile? file, [FromForm] string? source, CancellationToken ct)
     {
+        source ??= "upload";
+        if (source is not ("upload" or "live"))
+            return BadRequest(new { error = "Unknown source." });
+
         if (file is null || file.Length == 0 || file.Length > MaxUploadBytes ||
             !file.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
             return BadRequest(new { error = BadImage });
@@ -51,6 +55,7 @@ public class GuessApiController(PokeGuessDb db, InferenceClient inference, ILogg
                 PredictedName = top.Name,
                 Confidence = top.Confidence,
                 Model = result.Model,
+                Source = source,
             };
             db.Guesses.Add(guess);
             await db.SaveChangesAsync(ct);

@@ -19,6 +19,7 @@
   <ItemGroup>
     <!-- Shared with the inference service; single source in /models. -->
     <Content Include="..\..\models\class_names_v2.txt" Link="Data\class_names_v2.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\models\best_sketch_classes.txt" Link="Data\best_sketch_classes.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="..\..\models\pokeapi_slugs.json" Link="Data\pokeapi_slugs.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 

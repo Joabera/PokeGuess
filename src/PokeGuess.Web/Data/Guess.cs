@@ -10,4 +10,6 @@ public class Guess
     public required string Model { get; set; }
     public bool? IsCorrect { get; set; }
     public string? ActualName { get; set; }
+    /// "upload" (Guess page) or "live" (a Snap from the Live page).
+    public string Source { get; set; } = "upload";
 }

@@ -1,0 +1,59 @@
+@model string[]
+@{
+    ViewData["Title"] = "Live";
+}
+
+<div class="live-page">
+    <p class="text-muted mb-3">Point your camera at a Pokémon card, picture, or drawing. Recognition runs on your device; nothing is sent until you Snap.</p>
+
+    <div id="startPanel" class="text-center">
+        <button class="btn btn-accent btn-lg" type="button" id="startBtn">Start camera</button>
+        <p class="text-muted small mt-2 mb-0">First time on this device: downloads the model (113 MB, or 28 MB without a GPU), then it's cached.</p>
+    </div>
+
+    <div id="progress" class="mt-3 d-none" aria-live="polite">
+        <div class="small text-muted mb-1" id="progressLabel"></div>
+        <div class="progress" role="progressbar" aria-label="Model download">
+            <div class="progress-bar bg-warning" id="progressBar" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div id="cameraError" class="alert alert-warning mt-3 d-none" role="alert">
+        Live mode needs a camera. You can still <a asp-controller="Home" asp-action="Index">upload a picture</a>.
+    </div>
+
+    <div id="loadError" class="alert alert-danger mt-3 d-none" role="alert">
+        <span id="loadErrorText">Couldn't load the model.</span>
+        <button class="btn btn-sm btn-outline-light ms-2" type="button" id="retryBtn">Retry</button>
+    </div>
+
+    <div id="livePanel" class="d-none">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+            <div class="btn-group" role="group" aria-label="Mode">
+                <button class="btn btn-outline-accent" type="button" id="modeSearch">Search whole frame</button>
+                <button class="btn btn-outline-accent" type="button" id="modeGuide">Guide box</button>
+            </div>
+            <button class="btn btn-outline-secondary d-none" type="button" id="flipBtn">Flip camera</button>
+            <span class="small text-muted ms-auto" id="liveStatus" aria-live="polite"></span>
+        </div>
+        <div class="small text-muted mb-2 d-none" id="cpuNote">Search needs a GPU-capable browser</div>
+
+        <div id="stage">
+            <video id="video" playsinline muted></video>
+            <canvas id="overlay"></canvas>
+        </div>
+
+        <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-accent flex-fill" type="button" id="snapBtn" disabled>📸 Snap</button>
+            <button class="btn btn-outline-secondary flex-fill d-none" type="button" id="resumeBtn">Resume</button>
+        </div>
+
+        <partial name="_ResultPanel" />
+    </div>
+</div>
+
+@section Scripts {
+    <script>window.LIVE_CLASSES = @Json.Serialize(Model);</script>
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.all.min.js"></script>
+    <script type="module" src="~/js/live/live.js" asp-append-version="true"></script>
+}
