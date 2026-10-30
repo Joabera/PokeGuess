@@ -5,10 +5,13 @@ import {
 } from "./detector.js";
 import { createResultView, errorText } from "../result.js";
 
-const CACHE = "pokeguess-models-v2";   // bump with the model release
+// Bump with each model release: changes both the Cache API bucket and the model URLs,
+// so neither the Cache API nor the immutable HTTP caching can serve an old model.
+const MODEL_VERSION = "v2";
+const CACHE = `pokeguess-models-${MODEL_VERSION}`;
 const MODELS = {
-  webgpu: { url: "/models/convnext_gen1-3.onnx", label: "Downloading model — 113 MB, once per device" },
-  wasm: { url: "/models/convnext_gen1-3_int8.onnx", label: "Downloading model — 28 MB, once per device" },
+  webgpu: { url: `/models/convnext_gen1-3.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 113 MB, once per device" },
+  wasm: { url: `/models/convnext_gen1-3_int8.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 28 MB, once per device" },
 };
 const SEARCH_AT = 80, SHOW_AT = 60, SIZE = 224, PLANE = 3 * SIZE * SIZE;
 
@@ -20,8 +23,8 @@ const cctx = crop.getContext("2d", { willReadFrequently: true });
 const view = createResultView(el("resultPanel"));
 
 let session = null, backend = null, stream = null, facing = "environment";
-let mode = "search", running = false, frozen = false, wasRunning = false;
-let boxes = [], snapToken = 0;
+let mode = "search", running = false, frozen = false, active = false, webgpuFailed = false;
+let boxes = [], snapToken = 0, loopId = 0;
 const seen = [], probsHistory = [];
 
 // --- Start-up -----------------------------------------------------------
@@ -29,10 +32,12 @@ el("startBtn").addEventListener("click", start);
 el("retryBtn").addEventListener("click", start);
 
 async function start() {
+  active = true;
   show("startPanel", false); show("loadError", false); show("cameraError", false);
   try {
     await startCamera();
   } catch {
+    active = false;
     show("cameraError", true);
     show("startPanel", true);
     return;
@@ -40,42 +45,60 @@ async function start() {
   try {
     if (!session) await loadSession();
   } catch (e) {
+    active = false;
     stopCamera();
-    el("loadErrorText").textContent = `Couldn't load the model (${e.message}).`;
-    show("loadError", true);
+    loadError(`Couldn't load the model (${e.message}).`);
     return;
   }
   show("livePanel", true);
   setMode(backend === "webgpu" ? "search" : "guide");
   el("cpuNote").classList.toggle("d-none", backend === "webgpu");
   el("modeSearch").disabled = backend !== "webgpu";
+  // Hidden during the download: visibilitychange restarts camera + loop on return.
+  if (document.hidden) return;
+  if (!stream) {
+    try { await startCamera(); } catch { show("cameraError", true); return; }
+  }
   loop();
 }
 
+// WebGPU (fp32) first, then the CPU (int8). A backend that fails stays skipped for this
+// page, so Retry never re-downloads 113 MB just to fail on the GPU again.
 async function loadSession() {
-  const gpu = navigator.gpu && await navigator.gpu.requestAdapter().catch(() => null);
-  backend = gpu ? "webgpu" : "wasm";
-  const { url, label } = MODELS[backend];
-  let { bytes, cached } = await fetchModel(url, label);
-  try {
-    session = await ort.InferenceSession.create(bytes, { executionProviders: [backend] });
-  } catch (e) {
-    if (!cached) throw e;
-    // A bad cached copy: drop it and download once more.
-    await (await caches.open(CACHE)).delete(url);
-    ({ bytes } = await fetchModel(url, label));
-    session = await ort.InferenceSession.create(bytes, { executionProviders: [backend] });
+  const gpu = !webgpuFailed && navigator.gpu && await navigator.gpu.requestAdapter().catch(() => null);
+  let lastError;
+  for (const candidate of gpu ? ["webgpu", "wasm"] : ["wasm"]) {
+    const { url, label } = MODELS[candidate];
+    let model;
+    try {
+      model = await fetchModel(url, label);
+      session = await ort.InferenceSession.create(model.bytes, { executionProviders: [candidate] });
+      backend = candidate;
+      return;
+    } catch (e) {
+      lastError = e;
+      if (candidate === "webgpu") webgpuFailed = true;
+      // Only full downloads are cached, but drop a copy that failed so the next visit starts clean.
+      if (model?.cached) await caches.open(CACHE).then(c => c.delete(url)).catch(() => {});
+    }
   }
+  throw lastError;
 }
 
 // Cache API keeps the model across visits. Store only after the whole body has arrived,
-// so an interrupted first download never leaves a partial model in the cache.
+// so an interrupted first download never leaves a partial model in the cache. Caching is
+// best effort: private windows or a full quota still get a working (uncached) model.
 async function fetchModel(url, label) {
-  const cache = await caches.open(CACHE);
-  const hit = await cache.match(url);
-  if (hit) return { bytes: new Uint8Array(await hit.arrayBuffer()), cached: true };
+  let cache = null;
+  try {
+    cache = await caches.open(CACHE);
+    const hit = await cache.match(url);
+    if (hit) return { bytes: new Uint8Array(await hit.arrayBuffer()), cached: true };
+  } catch {
+    cache = null;
+  }
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-store" }); // the Cache API copy is the only one we keep
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const total = Number(res.headers.get("Content-Length")) || 0;
   const reader = res.body.getReader(), chunks = [];
@@ -90,9 +113,20 @@ async function fetchModel(url, label) {
     if (total) el("progressBar").style.width = `${(received / total * 100).toFixed(0)}%`;
   }
   show("progress", false);
+  // Hand the chunks to one Blob and drop them, so the model isn't held three times on phones.
   const blob = new Blob(chunks);
-  await cache.put(url, new Response(blob, { headers: { "Content-Type": "application/octet-stream" } }));
+  chunks.length = 0;
+  if (cache) {
+    try {
+      await cache.put(url, new Response(blob, { headers: { "Content-Type": "application/octet-stream" } }));
+    } catch { /* quota / private mode: keep going without the cache */ }
+  }
   return { bytes: new Uint8Array(await blob.arrayBuffer()), cached: false };
+}
+
+function loadError(message) {
+  el("loadErrorText").textContent = message;
+  show("loadError", true);
 }
 
 // --- Camera --------------------------------------------------------------
@@ -100,9 +134,20 @@ async function startCamera() {
   stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: 1280 } }, audio: false });
   video.srcObject = stream;
   await video.play();
+  fitStage();
   const cams = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === "videoinput");
   show("flipBtn", cams.length > 1);
 }
+
+// Keep the whole video plus the Snap button on screen (portrait phone cameras are tall):
+// cap the stage height at 60% of the viewport by narrowing it to the video's aspect ratio.
+// Video and overlay both fill the stage, so boxes stay aligned (no letterboxing).
+function fitStage() {
+  const W = video.videoWidth, H = video.videoHeight;
+  if (W && H) el("stage").style.maxWidth = `${Math.round(window.innerHeight * 0.6 * W / H)}px`;
+}
+window.addEventListener("resize", fitStage);
+video.addEventListener("loadedmetadata", fitStage);
 
 function stopCamera() {
   if (stream) stream.getTracks().forEach(t => t.stop());
@@ -115,15 +160,24 @@ el("flipBtn").addEventListener("click", async () => {
   try { await startCamera(); } catch { show("cameraError", true); }
 });
 
+// Release camera + GPU while hidden. Keyed on "the user started Live", not on the loop,
+// so switching away during the model download still gets the camera back.
 document.addEventListener("visibilitychange", async () => {
+  if (!active) return;
   if (document.hidden) {
-    wasRunning = running;
     running = false;
+    loopId++;          // any loop still awaiting a step exits instead of resuming
     stopCamera();
-  } else if (wasRunning) {
-    wasRunning = false;
-    try { await startCamera(); loop(); } catch { show("cameraError", true); }
+  } else if (session && !el("livePanel").classList.contains("d-none")) {
+    try {
+      await startCamera();
+      if (frozen) video.pause(); // keep a Snap frozen until Resume
+      loop();
+    } catch {
+      show("cameraError", true);
+    }
   }
+  // Still loading: start() picks the camera back up when the model is ready.
 });
 
 // --- Modes ---------------------------------------------------------------
@@ -145,7 +199,7 @@ async function classify(regions) {
     cctx.drawImage(video, c.x, c.y, c.s, c.s, 0, 0, SIZE, SIZE);
     fillTensor(cctx.getImageData(0, 0, SIZE, SIZE).data, data, k * PLANE);
   });
-  const out = await session.run({ input: new ort.Tensor("float32", data, [regions.length, 3, SIZE, SIZE]) });
+  const out = await runModel({ input: new ort.Tensor("float32", data, [regions.length, 3, SIZE, SIZE]) });
   const logits = out.logits.data, C = classes.length;
   return regions.map((r, k) => {
     const probs = softmax(Array.from(logits.subarray(k * C, (k + 1) * C)));
@@ -154,7 +208,16 @@ async function classify(regions) {
   });
 }
 
-async function searchStep(W, H) {
+// One inference at a time, whatever loop asks: a retiring loop's last call can't overlap
+// the next loop's first one on the same session.
+let runQueue = Promise.resolve();
+function runModel(feeds) {
+  const result = runQueue.then(() => session.run(feeds));
+  runQueue = result.catch(() => {});
+  return result;
+}
+
+async function searchStep(W, H, alive = () => true) {
   const hits = (await classify(gridRegions(W, H))).filter(h => h.conf >= SEARCH_AT);
   const kept = suppress(hits);
   seen.push(new Set(kept.map(k => k.name)));
@@ -163,7 +226,7 @@ async function searchStep(W, H) {
   const out = [];
   for (let box of kept.filter(k => stable.has(k.name))) {
     const idx = classes.indexOf(box.name);
-    for (let pass = 0; pass < 3 && canRefine(box, W, H); pass++) {
+    for (let pass = 0; pass < 3 && canRefine(box, W, H) && alive(); pass++) {
       const scored = (await classify(refineCandidates(box))).map(h => ({ ...h, name: box.name, conf: h.probs[idx] * 100 }));
       const best = scored.reduce((a, b) => (b.conf > a.conf ? b : a));
       if (best.conf < SEARCH_AT) break;
@@ -184,24 +247,41 @@ async function guideStep(W, H) {
 }
 
 // --- Loop + drawing ------------------------------------------------------
+// Each loop has an id; starting a new one (or hiding the page) retires the old one, so two
+// loops can never share the session. Inference errors (e.g. a lost GPU device after the
+// tab was backgrounded) stop the loop visibly; Retry rebuilds the session.
 async function loop() {
-  if (running) return;
+  const id = ++loopId;
+  const current = () => running && id === loopId;
   running = true;
   let frames = 0, last = performance.now();
-  while (running) {
-    const W = video.videoWidth, H = video.videoHeight;
-    if (W && H && !frozen) {
-      boxes = mode === "search" ? await searchStep(W, H) : await guideStep(W, H);
-      if (!frozen) draw(W, H);
-      el("snapBtn").disabled = !boxes.some(b => b.ok);
-      frames++;
+  try {
+    while (current()) {
+      const W = video.videoWidth, H = video.videoHeight;
+      if (W && H && !frozen) {
+        const next = mode === "search" ? await searchStep(W, H, current) : await guideStep(W, H);
+        if (!current()) return;
+        boxes = next;
+        if (!frozen) draw(W, H);
+        el("snapBtn").disabled = !boxes.some(b => b.ok);
+        frames++;
+      }
+      const now = performance.now();
+      if (now - last > 1000) {
+        el("liveStatus").textContent = `${backend === "webgpu" ? "GPU (WebGPU)" : "CPU (slower)"} · ${(frames * 1000 / (now - last)).toFixed(1)} fps`;
+        frames = 0; last = now;
+      }
+      await new Promise(r => requestAnimationFrame(r));
     }
-    const now = performance.now();
-    if (now - last > 1000) {
-      el("liveStatus").textContent = `${backend === "webgpu" ? "GPU (WebGPU)" : "CPU (slower)"} · ${(frames * 1000 / (now - last)).toFixed(1)} fps`;
-      frames = 0; last = now;
-    }
-    await new Promise(r => requestAnimationFrame(r));
+  } catch (e) {
+    if (id !== loopId) return;
+    running = false;
+    active = false;
+    stopCamera();
+    session?.release?.().catch(() => {});
+    session = null;
+    show("livePanel", false);
+    loadError(`Recognition stopped (${e.message}).`);
   }
 }
 

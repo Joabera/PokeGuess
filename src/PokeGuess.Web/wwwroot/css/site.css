@@ -64,7 +64,7 @@
 
 /* Live page */
 .live-page { max-width: 960px; margin: 0 auto; }
-#stage { position: relative; background: #000; border-radius: 12px; overflow: hidden; }
+#stage { position: relative; margin: 0 auto; background: #000; border-radius: 12px; overflow: hidden; }
 #stage video, #stage #overlay { width: 100%; display: block; }
 #stage #overlay { position: absolute; inset: 0; height: 100%; }
 .btn-outline-accent.active { background: var(--accent); color: #1e293b; }

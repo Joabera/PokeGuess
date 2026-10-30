@@ -93,8 +93,8 @@ app.UseRouting();
 app.UseRateLimiter();
 
 // Live page models (~113 MB / 28 MB): plain static files outside wwwroot so the build
-// doesn't fingerprint or compress them. Only .onnx is served; files change only with a
-// new release (new cache name in live.js), so they can be cached forever.
+// doesn't fingerprint or compress them. Only .onnx is served. live.js requests them with
+// ?v=<model version>, so a new release is a new URL and they can be cached forever.
 var modelsDir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, config["LiveModels:Path"] ?? "models"));
 if (Directory.Exists(modelsDir))
 {
