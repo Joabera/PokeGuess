@@ -1,5 +1,4 @@
-﻿@inject PokeGuess.Web.Services.Pokedex Dex
-@{
+﻿@{
     ViewData["Title"] = "Guess";
 }
 
@@ -20,41 +19,9 @@
 
     <div id="status" class="mt-3" role="status" aria-live="polite"></div>
 
-    <div id="verdict" class="text-center mt-3 d-none">
-        <img id="sprite" class="d-none" alt="" />
-        <div class="winner" id="winner"></div>
-        <span class="badge text-bg-secondary model-badge" id="modelBadge"></span>
-        <div><button class="btn btn-sm btn-outline-accent mt-2 d-none" type="button" id="cryBtn">🔊 Play cry</button></div>
-        <div class="digimon mt-2 d-none" id="digimon"></div>
-    </div>
-
-    <div id="results" class="mt-3"></div>
-
-    <div id="feedback" class="mt-3 d-none">
-        <p class="mb-2">Did we get it right?</p>
-        <div class="d-flex gap-2">
-            <button class="btn btn-success flex-fill" type="button" id="yesBtn">✓ Correct</button>
-            <button class="btn btn-outline-danger flex-fill" type="button" id="noBtn">✗ Wrong</button>
-        </div>
-        <form id="actualForm" class="d-flex gap-2 mt-2 d-none">
-            <label for="actualName" class="visually-hidden">Which Pokémon is it?</label>
-            <input class="form-control" id="actualName" list="pokemon-names" placeholder="Which Pokémon is it?" autocomplete="off" required />
-            <button class="btn btn-accent" type="submit">Submit</button>
-        </form>
-        <div id="feedbackMsg" class="mt-2 text-muted" aria-live="polite"></div>
-    </div>
-
-    <datalist id="pokemon-names">
-        @foreach (var name in Dex.Names)
-        {
-            <option value="@name"></option>
-        }
-    </datalist>
+    <partial name="_ResultPanel" />
 </div>
 
-<audio id="cry"></audio>
-
 @section Scripts {
-    <script>window.POKEAPI_SLUGS = @Json.Serialize(Dex.Slugs);</script>
-    <script src="~/js/guess.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/guess.js" asp-append-version="true"></script>
 }
