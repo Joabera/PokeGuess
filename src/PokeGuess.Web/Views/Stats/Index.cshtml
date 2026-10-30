@@ -34,6 +34,20 @@
         </div>
     </div>
     <div class="col-md-6">
+        <h2 class="h6">By source</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-dark">
+                <thead><tr><th>Source</th><th class="text-end">Feedback</th><th class="text-end">Accuracy</th></tr></thead>
+                <tbody>
+                    @foreach (var s in Model.BySource)
+                    {
+                        <tr><td>@(s.Key == "live" ? "Live camera" : "Upload")</td><td class="text-end">@s.WithFeedback</td><td class="text-end">@Pct(s.Accuracy)</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
         <h2 class="h6">By generation</h2>
         <div class="table-responsive">
             <table class="table table-sm table-dark">

@@ -11,6 +11,7 @@ public class StatsDto
     public double? Accuracy { get; set; }
     public List<GroupAccuracy> ByModel { get; set; } = [];
     public List<GroupAccuracy> ByGeneration { get; set; } = [];
+    public List<GroupAccuracy> BySource { get; set; } = [];
     public List<NameCount> MostGuessed { get; set; } = [];
     public List<MixUp> TopMixUps { get; set; } = [];
 }
@@ -69,6 +70,16 @@ public class StatsService(PokeGuessDb db, Pokedex dex)
             })
             .ToListAsync(ct);
 
+        var bySource = await db.Guesses
+            .GroupBy(g => g.Source)
+            .Select(g => new
+            {
+                Source = g.Key,
+                WithFeedback = g.Count(x => x.IsCorrect != null),
+                Correct = g.Count(x => x.IsCorrect == true),
+            })
+            .ToListAsync(ct);
+
         var mixUps = await db.Guesses
             .Where(g => g.IsCorrect == false)
             .GroupBy(g => new { g.PredictedName, g.ActualName })
@@ -89,6 +100,11 @@ public class StatsService(PokeGuessDb db, Pokedex dex)
             {
                 var rows = byName.Where(n => dex.GenerationOf(n.Name) == gen).ToList();
                 return Group($"Gen {gen}", rows.Sum(n => n.WithFeedback), rows.Sum(n => n.Correct));
+            })],
+            BySource = [.. new[] { "upload", "live" }.Select(source =>
+            {
+                var row = bySource.FirstOrDefault(s => s.Source == source);
+                return Group(source, row?.WithFeedback ?? 0, row?.Correct ?? 0);
             })],
             MostGuessed = byName.OrderByDescending(n => n.Total).ThenBy(n => n.Name, StringComparer.Ordinal)
                 .Take(10).Select(n => new NameCount { Name = n.Name, Count = n.Total }).ToList(),
