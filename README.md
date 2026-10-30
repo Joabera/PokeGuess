@@ -1,8 +1,10 @@
 # PokeGuess — Pokémon Image Classifier (Gen 1–3)
 
-**Live:** https://pokeguess-web-773dd.azurewebsites.net · [Stats](https://pokeguess-web-773dd.azurewebsites.net/Stats)
+**Live:** https://pokeguess-web-773dd.azurewebsites.net · [Live camera](https://pokeguess-web-773dd.azurewebsites.net/Live) · [Stats](https://pokeguess-web-773dd.azurewebsites.net/Stats)
 
 Identifies **the 386 Pokémon of Generations 1–3** from a photo, illustration, or hand-drawn sketch. You drop, paste, or snap an image. PokeGuess shows its top 3 guesses, the official sprite, and the Pokémon's cry, then asks whether it got it right. That feedback feeds a live accuracy dashboard.
+
+**Live mode** points your webcam or phone camera at a card, picture, or drawing and recognizes Pokémon in real time, drawing green boxes over the video. The model runs **in your browser** (ONNX Runtime Web), so nothing is uploaded per frame; **Snap** sends just the boxed crop through the same pipeline as uploads, tagged as `live` in Stats.
 
 An **ASP.NET Core MVC** web app (C#, jQuery, EF Core + Azure SQL) sits in front of a **Flask** inference microservice running two **ONNX** models. Both are deployed to **Azure App Service** by GitHub Actions.
 
@@ -23,7 +25,8 @@ Flask inference (Python) ── Azure App Service              Azure SQL (SQLite
 
 - **The browser only talks to the MVC app.** MVC calls Flask server-side with a shared API key, so there's no CORS and no public model API.
 - **Two-model routing:** ConvNeXt decides the generation. For Gen 1 it defers to the original ResNet-18 (trained on more Gen 1 data) when that model is ≥ 55% confident. The UI shows which model answered.
-- **Feedback loop:** every guess is stored (never the image). ✓/✗ feedback powers `/Stats`: accuracy overall, by model, and by generation, plus the most common mix-ups.
+- **Feedback loop:** every guess is stored (never the image). ✓/✗ feedback powers `/Stats`: accuracy overall, by model, by generation, and by source (upload vs live), plus the most common mix-ups.
+- **Live mode (`/Live`):** ConvNeXt runs in the browser on **WebGPU** (fp32, 113 MB; ~40 fps with the guide box, several fps searching the whole frame) or falls back to the **CPU** (int8, 28 MB; guide box only). The model downloads once per device and is kept in the browser's Cache API. Search mode scores a grid of crops per frame, keeps confident hits that hold for 2 of 3 frames, then shrinks each box while the same Pokémon stays ≥ 80%. The web app serves the model files from `/models/` with immutable caching.
 
 ## What's where
 
@@ -33,7 +36,8 @@ Flask inference (Python) ── Azure App Service              Azure SQL (SQLite
 | Data | EF Core, Azure SQL / SQLite, aggregate queries | `src/PokeGuess.Web/Data`, `Services/StatsService.cs` |
 | Stats API | `GET /api/stats`, JSON by default, **XML** with `Accept: application/xml` | `Controllers/StatsController.cs` |
 | Inference service | Python, Flask, ONNX Runtime, gunicorn | `inference/` |
-| Tests | xUnit + `WebApplicationFactory`, pytest | `src/PokeGuess.Web.Tests`, `inference/tests` |
+| Live mode | ONNX Runtime Web (WebGPU / WASM), ES modules, Cache API | `Views/Live`, `wwwroot/js/live/` |
+| Tests | xUnit + `WebApplicationFactory`, pytest, `node --test` | `src/PokeGuess.Web.Tests` (incl. `js/`), `inference/tests` |
 | Training + export | PyTorch, torchvision, ONNX parity check | `training/` |
 | Infra + CI/CD | az CLI, GitHub Actions, OIDC login | `infra/setup.sh`, `.github/workflows` |
 
@@ -44,8 +48,9 @@ Hardening: 5 MB upload cap, a per-IP rate limit on guesses (10/min, `X-Forwarded
 Needs the .NET 10 SDK and Python 3.12+.
 
 ```bash
-# 1. Models (ONNX, published as a GitHub release; ~160 MB)
-gh release download models-v1 -p "*.onnx" -D inference/models
+# 1. Models (ONNX, published as a GitHub release; ~190 MB). models/ feeds the Live page locally.
+gh release download models-v2 -p "*.onnx" -D models
+cp models/convnext_gen1-3.onnx models/resnet18_gen1.onnx inference/models/
 cp models/best_sketch_classes.txt models/class_names.txt models/class_names_v2.txt inference/models/
 
 # 2. Inference service → http://127.0.0.1:5000
@@ -59,7 +64,9 @@ dotnet user-secrets set Inference:ApiKey dev --project src/PokeGuess.Web
 dotnet run --project src/PokeGuess.Web
 ```
 
-Tests: `dotnet test` and `cd inference && pytest`.
+Tests: `dotnet test`, `node --test "src/PokeGuess.Web.Tests/js/*.test.mjs"` (Node 22), and `cd inference && pytest`.
+
+Local SQLite is created on first run but never altered afterwards. After a schema change (e.g. the `Source` column), delete `src/PokeGuess.Web/pokeguess.db*` and restart. Azure SQL uses EF migrations instead.
 
 ## Deploy to Azure
 
@@ -67,8 +74,8 @@ Tests: `dotnet test` and `cd inference && pytest`.
 az login && gh auth login
 
 # Once: publish the ONNX models the deploy downloads (run training/export_onnx.py first)
-gh release create models-v1 models/convnext_gen1-3.onnx models/resnet18_gen1.onnx \
-  --title "Model weights v1" --notes "ONNX exports of best_sketch.pth and fine_tuned_with_pencil_sketch.pth"
+gh release create models-v2 models/convnext_gen1-3.onnx models/resnet18_gen1.onnx models/convnext_gen1-3_int8.onnx \
+  --title "Model weights v2" --notes "Dynamic-batch ConvNeXt + int8 for Live mode; ResNet-18 unchanged"
 
 bash infra/setup.sh        # creates the resource group, B1 plan, 2 web apps, Azure SQL free offer, OIDC identity, repo variables
 git push origin main       # the Deploy workflow tests, then ships both apps
