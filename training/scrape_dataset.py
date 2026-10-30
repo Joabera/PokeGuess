@@ -42,6 +42,8 @@ import warnings
 from collections import defaultdict
 
 from tqdm import tqdm
+
+from classlist import safe_name
 import urllib.request
 import urllib.parse
 
@@ -87,7 +89,9 @@ def load_classes(min_id=1, max_id=None, only=None):
 
 
 def class_dir(name):
-    d = os.path.join(DATA_ROOT, name)
+    # The class file already holds safe names; this guards against a stray unsafe one
+    # silently becoming a different folder (e.g. Windows dropping a trailing dot).
+    d = os.path.join(DATA_ROOT, safe_name(name))
     os.makedirs(d, exist_ok=True)
     return d
 
