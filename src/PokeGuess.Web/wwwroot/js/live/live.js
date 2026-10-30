@@ -10,8 +10,8 @@ import { createResultView, errorText } from "../result.js";
 const MODEL_VERSION = "v3";
 const CACHE = `pokeguess-models-${MODEL_VERSION}`;
 const MODELS = {
-  webgpu: { url: `/models/convnext_gen1-9.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 113 MB, once per device" },
-  wasm: { url: `/models/convnext_gen1-9_int8.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 28 MB, once per device" },
+  webgpu: { url: `/models/convnext_gen1-9.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 115 MB, once per device" },
+  wasm: { url: `/models/convnext_gen1-9_int8.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 29 MB, once per device" },
 };
 const SEARCH_AT = 80, SHOW_AT = 60, SIZE = 224, PLANE = 3 * SIZE * SIZE;
 
@@ -63,7 +63,7 @@ async function start() {
 }
 
 // WebGPU (fp32) first, then the CPU (int8). A backend that fails stays skipped for this
-// page, so Retry never re-downloads 113 MB just to fail on the GPU again.
+// page, so Retry never re-downloads 115 MB just to fail on the GPU again.
 async function loadSession() {
   const gpu = !webgpuFailed && navigator.gpu && await navigator.gpu.requestAdapter().catch(() => null);
   let lastError;
