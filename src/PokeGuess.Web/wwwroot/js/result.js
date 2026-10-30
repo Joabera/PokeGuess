@@ -1,7 +1,7 @@
 // Renders a POST /api/guess answer (bars, badge, sprite + cry, Digimon line) and its
 // ✓/✗ feedback inside the _ResultPanel partial. Shared by the Guess and Live pages.
 const CONFIDENCE_THRESHOLD = 60;
-const MODEL_LABELS = { "gen1-3": "Gen 1–3 model", "legacy-gen1": "Gen 1 specialist" };
+const MODEL_LABELS = { "gen1-9": "Gen 1–9 model", "gen1-3": "Gen 1–3 model (previous)", "legacy-gen1": "Gen 1 specialist" };
 const canPlayOgg = new Audio().canPlayType("audio/ogg") !== "";
 
 export function errorText(xhr) {

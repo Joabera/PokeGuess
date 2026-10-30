@@ -7,11 +7,11 @@ import { createResultView, errorText } from "../result.js";
 
 // Bump with each model release: changes both the Cache API bucket and the model URLs,
 // so neither the Cache API nor the immutable HTTP caching can serve an old model.
-const MODEL_VERSION = "v2";
+const MODEL_VERSION = "v3";
 const CACHE = `pokeguess-models-${MODEL_VERSION}`;
 const MODELS = {
-  webgpu: { url: `/models/convnext_gen1-3.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 113 MB, once per device" },
-  wasm: { url: `/models/convnext_gen1-3_int8.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 28 MB, once per device" },
+  webgpu: { url: `/models/convnext_gen1-9.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 113 MB, once per device" },
+  wasm: { url: `/models/convnext_gen1-9_int8.onnx?v=${MODEL_VERSION}`, label: "Downloading model — 28 MB, once per device" },
 };
 const SEARCH_AT = 80, SHOW_AT = 60, SIZE = 224, PLANE = 3 * SIZE * SIZE;
 

@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace PokeGuess.Web.Services;
 
-/// The 386 Gen 1–3 names in National Dex order, plus their PokéAPI slugs.
+/// The 1025 Gen 1–9 names in National Dex order, plus their PokéAPI slugs.
 public sealed class Pokedex
 {
     private readonly Dictionary<string, int> _index;
@@ -34,8 +34,11 @@ public sealed class Pokedex
         return false;
     }
 
-    /// 1, 2 or 3 by dex number (#1–151, #152–251, #252–386); 0 if unknown.
+    // Last National Dex number of each generation, Gen 1..9.
+    private static readonly int[] GenerationEnds = [151, 251, 386, 493, 649, 721, 809, 905, 1025];
+
+    /// 1–9 by dex number; 0 if unknown.
     public int GenerationOf(string name) => _index.TryGetValue(name, out var i)
-        ? i < 151 ? 1 : i < 251 ? 2 : 3
+        ? Array.FindIndex(GenerationEnds, end => i < end) + 1
         : 0;
 }
